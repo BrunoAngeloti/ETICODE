@@ -12,7 +12,7 @@ export function Hero(){
           Ética e moral no universo da computação. Descubra, discuta e desenvolva perspectivas sobre a tecnologia responsável.
         </p>
 
-        <div className="flex flex-col md:flex-row gap-4 mt-6 ">
+        <div className="flex flex-col md:flex-row gap-4 mt-6 w-full justify-center lg:justify-start">
           <Button title="Saiba mais" onPress={() => {}} />
           <Button title="Criar uma conta" onPress={() => {}} variant="outlined"/>
         </div>

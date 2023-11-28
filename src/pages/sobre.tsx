@@ -37,7 +37,7 @@ export default function About() {
           />         
         </div>
 
-        <p className="text-grey-500 font-medium mt-10 mb-20">
+        <p className="text-grey-500 font-medium mt-10 mb-10">
           Junte-se a nós enquanto exploramos as interconexões fascinantes entre a tecnologia e a ética, dando voz a diversas perspectivas e contribuindo para um entendimento mais profundo das questões que moldam o nosso mundo digital.
         </p>
       </section>

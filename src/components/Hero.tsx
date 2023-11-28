@@ -1,7 +1,15 @@
 import Image from "next/image";
 import { Button } from "./Button";
+import { useState } from "react";
+import { LoginModal } from "./modals/LoginModal";
+import { SignUpModal } from "./modals/SignUpModal";
+import { SignUpFormModal } from "./modals/SignUpFormModal";
 
 export function Hero(){
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [isSignUpFormModalOpen, setSignUpFormModalOpen] = useState(false);
+
   return(
     <div className="w-full bg-primary-50 flex items-center flex-col lg:flex-row pt-6 lg:pt-12 gap-6 font-poppins rounded-md z-10">
       <div className="px-6 lg:px-0 lg:pl-14 pb-12 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
@@ -14,7 +22,7 @@ export function Hero(){
 
         <div className="flex flex-col md:flex-row gap-4 mt-6 w-full justify-center lg:justify-start">
           <Button title="Saiba mais" onPress={() => {}} />
-          <Button title="Criar uma conta" onPress={() => {}} variant="outlined"/>
+          <Button title="Criar uma conta" onPress={() => setSignUpModalOpen(true)} variant="outlined"/>
         </div>
       </div>
       <Image
@@ -22,6 +30,24 @@ export function Hero(){
         alt="3 pessoas sentadas em uma mesa trabalhando"
         width={470}
         height={300}
+      />
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setLoginModalOpen(false)} 
+        setSignUpModalOpen={setSignUpModalOpen}
+      />
+      <SignUpModal 
+        isOpen={isSignUpModalOpen} 
+        onClose={() => setSignUpModalOpen(false)} 
+        setLoginModalOpen={setLoginModalOpen}
+        handleSignUp={() => {
+          setSignUpModalOpen(false);
+          setSignUpFormModalOpen(true);
+        }}
+      />
+      <SignUpFormModal 
+        isOpen={isSignUpFormModalOpen} 
+        onClose={() => setSignUpFormModalOpen(false)} 
       />
     </div>
   )

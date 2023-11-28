@@ -35,7 +35,7 @@ export function Header(){
 
   const renderMobileMenu = () => { 
     return (
-      <div className={`absolute ${!menuOpen ? "-top-full shadow-none" : "top-full shadow-2xl"} left-0 w-full border-t border-primary-500 py-3 px-4 z-40 transition-all duration-500 flex flex-col sm:flex-row gap-4`}>
+      <div className={`absolute ${!menuOpen ? "-top-full shadow-none" : "top-full shadow-2xl"} left-0 w-full border-t border-primary-500 py-3 px-4 z-40 transition-all duration-500 flex flex-col sm:flex-row gap-4 bg-secondary-50`}>
         <Button title="Login" onPress={() => {}} variant="outlined"/>
         <Button title="Criar uma conta" onPress={() => {}} variant="filled"/>
       </div>

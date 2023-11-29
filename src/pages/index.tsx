@@ -1,6 +1,8 @@
 import { Hero } from "@/components/Hero";
+import { LastPosts } from "@/components/LastPosts";
 import { PlayGame } from "@/components/PlayGame";
 import { PopularPosts } from "@/components/PopularPosts";
+import { PopularTags } from "@/components/PopularTags";
 
 export default function Home() {
   return (
@@ -9,6 +11,10 @@ export default function Home() {
         <Hero />
         <PopularPosts />
         <PlayGame />
+        <div className="w-full grid grid-cols-3 mt-10 gap-20">
+          <LastPosts />
+          <PopularTags />
+        </div>
       </section>
     </main>
   )

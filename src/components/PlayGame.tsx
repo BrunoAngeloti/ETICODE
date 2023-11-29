@@ -3,7 +3,7 @@ import { Button } from "./Button";
 
 export function PlayGame(){
   return(
-    <div className="w-full bg-primary-50 flex items-center flex-col lg:flex-row gap-10 font-poppins rounded-md px-6 sm:px-14 py-8 mt-20">
+    <div className="w-full bg-primary-50 flex items-center flex-col lg:flex-row gap-10 font-poppins rounded-md px-6 sm:px-14 py-8 mt-20 mb-10">
       <Image
         src="/playGameImageLeft.svg"
         alt="Homem sentado com uma pipoca ao lado"

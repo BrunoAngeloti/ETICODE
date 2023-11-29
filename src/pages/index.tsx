@@ -7,7 +7,7 @@ import { PopularTags } from "@/components/PopularTags";
 export default function Home() {
   return (
     <main className="w-full flex flex-col items-center">
-      <section className="w-full max-w-7xl px-10">
+      <section className="w-full max-w-7xl px-6 lg:px-10">
         <Hero />
         <PopularPosts />
         <PlayGame />

@@ -14,7 +14,7 @@ export function SignUpFormModal({ isOpen, onClose }: SignUpFormModalProps){
       <div className="font-poppins flex flex-col item-center text-center justify-center">
         <h1 className="font-semibold text-grey-500 text-2xl">ETICODE</h1>
 
-        <Image src="/mockPerson.png" width={128} height={128} className="my-4 rounded-full mx-auto" alt="mock" />
+        <Image src="/mocks/mockperson.png" width={128} height={128} className="my-4 rounded-full mx-auto" alt="mock" />
         
         <div className="flex flex-col text-left font-semibold mb-4">
           <label className="text-grey-500">Nome*</label>

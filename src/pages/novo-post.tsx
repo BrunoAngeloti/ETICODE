@@ -73,16 +73,16 @@ export default function NewPost() {
     };
   }, [textValue, titleValue, descriptionValue, selectedTags]);
 
-  const textTitle = isLoadedFromLocalStorage ? "Criar nova publicação (Rascunho salvo)" : "Criar nova publicação";
+  const textTitle = isLoadedFromLocalStorage ? "Editar Rascunho" : "Criar nova publicação";
 
   return (
-    <main className="w-full flex flex-col items-center min-h-screen">
-      <section className="w-full max-w-7xl px-6 lg:px-10 font-poppins">
+    <main className="w-full flex flex-col items-center">
+      <section className="w-full max-w-7xl px-6 lg:px-10 mt-6 font-poppins flex flex-col">
         <Title text={textTitle} />
 
         <TitleInput titleValue={titleValue} setTitleValue={setTitleValue} />
 
-        <div className='grid grid-cols-2 w-full gap-10'>
+        <div className='grid grid-cols-1 md:grid-cols-2 w-full gap-1 md:gap-10'>
           <DescriptionInput descriptionValue={descriptionValue} setDescriptionValue={setDescriptionValue} />
           <ImageInput fileData={fileData} setFileData={setFileData} />
         </div>
@@ -91,9 +91,14 @@ export default function NewPost() {
         
         <TextInput textValue={textValue} setTextValue={setTextValue} />
 
-        <div className="output" dangerouslySetInnerHTML={{ __html: textValue }} />
+        {/* Isso será colocado apenas na página do post, na página de criação de post não precisa
+        <div className="output" dangerouslySetInnerHTML={{ __html: textValue }} />*/}
 
-        <button onClick={handlePublish} className="mt-10 w-full max-w-xs h-12 bg-blue-500 text-white rounded-md font-semibold text-lg hover:bg-blue-600 transition duration-200">
+        <button 
+          onClick={handlePublish} 
+          disabled={!cleanContent(textValue) || !titleValue || !descriptionValue || !selectedTags.length || !fileData}
+          className="mt-20 ml-auto disabled:bg-primary-200 max-w-xs py-2 px-16 bg-primary-500 rounded-3xl text-white font-medium text-lg hover:bg-primary-700 transition duration-300"
+        >
           Publicar
         </button>
       </section>

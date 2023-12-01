@@ -2,6 +2,7 @@ import { FaRegSave } from "react-icons/fa";
 import Modal from "../Modal";
 import { Button } from "../Button";
 import Image from "next/image";
+import { useEffect } from "react";
 
 interface SignUpFormModalProps {
   isOpen: boolean;
@@ -9,6 +10,11 @@ interface SignUpFormModalProps {
 }
 
 export function SignUpFormModal({ isOpen, onClose }: SignUpFormModalProps){
+  useEffect(() => {
+    if(isOpen) document.body.style.overflowY = 'hidden'
+    else document.body.style.overflowY = 'visible'
+  }, [isOpen])
+
   return(
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="font-poppins flex flex-col item-center text-center justify-center">

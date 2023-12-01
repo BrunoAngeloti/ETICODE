@@ -1,5 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
 import Modal from "../Modal";
+import { useEffect } from "react";
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -13,6 +14,11 @@ export function SignUpModal({ isOpen, onClose, setLoginModalOpen, handleSignUp }
     onClose();
     setLoginModalOpen(true);
   }
+
+  useEffect(() => {
+    if(isOpen) document.body.style.overflowY = 'hidden'
+    else document.body.style.overflowY = 'visible'
+  }, [isOpen])
 
   return(
     <Modal isOpen={isOpen} onClose={onClose}>

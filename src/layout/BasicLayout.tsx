@@ -1,5 +1,6 @@
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { ToastContainer } from 'react-toastify';
 
 interface BasicLayoutProps {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ export function BasicLayout({ children } : BasicLayoutProps) {
         {children}
       </div>
       <Footer />
+      <ToastContainer />
     </div>
   )
 }

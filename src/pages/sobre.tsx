@@ -21,11 +21,11 @@ export default function About() {
           </p>
         </div>
 
-        <p className="text-grey-500 font-medium mt-20">
+        <p className="text-grey-500 font-medium mt-16">
           Na era digital em que vivemos, a interação entre a tecnologia e as questões éticas tornou-se fundamental. Nossa comunidade acadêmica está comprometida em explorar as complexidades que surgem quando a inovação tecnológica se encontra com considerações morais e sociais. Aqui, você encontrará reflexões e análises elaboradas por membros da Ufes, abordando tópicos que variam desde os desafios éticos na inteligência artificial até questões cruciais de segurança cibernética.
         </p>
 
-        <div className="flex flex-col-reverse items-center lg:flex-row gap-8 mt-20">
+        <div className="flex flex-col-reverse items-center lg:flex-row gap-8 mt-14">
           <p className="text-grey-500 font-medium">
             Este blog é um espaço colaborativo voltado para a comunidade da UFES, tanto profissionais quanto estudantes. Incentivamos a partilha de ideias e experiências sobre ética na computação, segurança cibernética e dilemas morais na era digital. Aqui, você pode expressar seus insights, aprender com os demais e contribuir para um rico diálogo. Este é o lugar ideal para quem é apaixonado por tecnologia e ética. Convidamos você a juntar-se a nós nesta emocionante jornada de conhecimento e descoberta, onde exploramos juntos os desafios e oportunidades do mundo digital, sempre com um olhar crítico e reflexivo. Este é o lugar ideal para quem busca não apenas compreender, mas também moldar o futuro da tecnologia de maneira consciente e ética.
           </p>

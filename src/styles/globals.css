@@ -22,19 +22,21 @@ body::-webkit-scrollbar-thumb {
 }
 
 .output p {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
   line-height: 1.5;
-  color: #4a4a4a;
+  color: #222222;
+  text-align: justify;
 }
 
 .output h1 {
   font-size: 2rem;
   font-weight: bold;
-  color: #2a2a2a; 
+  color: #222222; 
 }
 
 .output a {
-  color: #1685b1;
+  color: #5e9ad6;
 }
 
 /* Estilo para listas ordenadas */
@@ -55,8 +57,43 @@ body::-webkit-scrollbar-thumb {
 }
 
 .output blockquote {
-  border-left: 4px solid #e2e8f0; /* Cor da borda esquerda */
-  background-color: #f8fafc; /* Cor de fundo */
-  padding: 1rem; /* Espaçamento interno */
-  font-style: italic; /* Estilo itálico */
+  border-left: 4px solid #4b4e6d;
+  background-color: #ededf0; 
+  padding: 1rem; 
+  font-style: italic; 
+  border-radius: 5px;
+}
+
+.output h2 {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #222222; 
+}
+
+/* Estilo para h3 */
+.output h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #222222; 
+}
+
+/* Estilo para h4 */
+.output h4 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #222222; 
+}
+
+/* Estilo para h5 */
+.output h5 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #222222; 
+}
+
+/* Estilo para h6 */
+.output h6 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #222222; 
 }

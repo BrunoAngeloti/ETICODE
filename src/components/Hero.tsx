@@ -3,13 +3,11 @@ import { Button } from "./Button";
 import { useState } from "react";
 import { LoginModal } from "./modals/LoginModal";
 import { SignUpModal } from "./modals/SignUpModal";
-import { SignUpFormModal } from "./modals/SignUpFormModal";
 import { useRouter } from "next/router";
 
 export function Hero(){
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
-  const [isSignUpFormModalOpen, setSignUpFormModalOpen] = useState(false);
 
   const route = useRouter();
 
@@ -43,14 +41,6 @@ export function Hero(){
         isOpen={isSignUpModalOpen} 
         onClose={() => setSignUpModalOpen(false)} 
         setLoginModalOpen={setLoginModalOpen}
-        handleSignUp={() => {
-          setSignUpModalOpen(false);
-          setSignUpFormModalOpen(true);
-        }}
-      />
-      <SignUpFormModal 
-        isOpen={isSignUpFormModalOpen} 
-        onClose={() => setSignUpFormModalOpen(false)} 
       />
     </div>
   )

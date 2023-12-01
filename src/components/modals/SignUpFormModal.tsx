@@ -7,7 +7,6 @@ import { useUserInfo } from "@/context/UserContext";
 interface SignUpFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  // authData:{email:string, avatar_url:string,full_name:string}
 }
 
 export function SignUpFormModal({ isOpen, onClose }: SignUpFormModalProps) {
@@ -37,6 +36,8 @@ export function SignUpFormModal({ isOpen, onClose }: SignUpFormModalProps) {
           <input type="text" className="text-grey-300 border border-primary-100 bg-primary-50 rounded px-3 py-2" />
         </div>
 
+
+        {/*! Esse botão para fazer a chamada para o backend */}
         <Button title="Cadastrar" onPress={() => alert("Em breve")} icon={FaRegSave} fullWidth />
       </div>
     </Modal>

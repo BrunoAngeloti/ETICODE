@@ -1,7 +1,6 @@
 import { supabase } from "@/lib/initSupabase";
 import Modal from "../Modal";
 import { FcGoogle } from "react-icons/fc";
-import { useUserInfo } from "@/context/UserContext";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -9,19 +8,23 @@ interface LoginModalProps {
   setSignUpModalOpen: (value: boolean) => void;
 }
 
-
-
 export function LoginModal({ isOpen, onClose, setSignUpModalOpen }: LoginModalProps) {
-  const { userInfo, signOut, loading } = useUserInfo();
-
   function changeModal() {
     onClose();
     setSignUpModalOpen(true);
   }
 
-  async function handleLoginGoogle() {
-    console.log(userInfo)
-    localStorage.setItem("userLogado Final", JSON.stringify(userInfo));
+  async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google"
+    })
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    onClose()
   }
 
   return (
@@ -34,7 +37,7 @@ export function LoginModal({ isOpen, onClose, setSignUpModalOpen }: LoginModalPr
         </p>
 
         <button
-          onClick={handleLoginGoogle}
+          onClick={signInWithGoogle}
           className="py-2 px-5 text-grey-300 font-medium flex flex-row items-center justify-center bg-white border border-primary-50 rounded mt-4 hover:shadow-sm transition-shadow"
         >
           <FcGoogle className="mr-2" size={20} />

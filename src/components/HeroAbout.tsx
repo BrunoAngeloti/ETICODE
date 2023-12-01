@@ -3,12 +3,10 @@ import { Button } from "./Button";
 import { useState } from "react";
 import { LoginModal } from "./modals/LoginModal";
 import { SignUpModal } from "./modals/SignUpModal";
-import { SignUpFormModal } from "./modals/SignUpFormModal";
 
 export function HeroAbout(){
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
-  const [isSignUpFormModalOpen, setSignUpFormModalOpen] = useState(false);
 
   return(
     <div className="w-full bg-primary-50 flex items-center flex-col lg:flex-row pt-6 lg:pt-12 gap-6 font-poppins rounded-md z-10">
@@ -39,14 +37,6 @@ export function HeroAbout(){
         isOpen={isSignUpModalOpen} 
         onClose={() => setSignUpModalOpen(false)} 
         setLoginModalOpen={setLoginModalOpen}
-        handleSignUp={() => {
-          setSignUpModalOpen(false);
-          setSignUpFormModalOpen(true);
-        }}
-      />
-      <SignUpFormModal 
-        isOpen={isSignUpFormModalOpen} 
-        onClose={() => setSignUpFormModalOpen(false)} 
       />
     </div>
   )

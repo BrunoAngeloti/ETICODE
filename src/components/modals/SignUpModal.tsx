@@ -6,18 +6,15 @@ interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
   setLoginModalOpen: (value: boolean) => void;
-  handleSignUp: () => void;
 }
 
-export function SignUpModal({ isOpen, onClose, setLoginModalOpen, handleSignUp }: SignUpModalProps) {
+export function SignUpModal({ isOpen, onClose, setLoginModalOpen }: SignUpModalProps) {
   function changeModal() {
     onClose();
     setLoginModalOpen(true);
   }
 
   async function signUpWithGoogle() {
-    console.log("Login com Google");
-
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google"
     })
@@ -26,7 +23,8 @@ export function SignUpModal({ isOpen, onClose, setLoginModalOpen, handleSignUp }
       console.log(error);
       return;
     }
-    handleSignUp();
+
+    onClose()
   }
 
   return (

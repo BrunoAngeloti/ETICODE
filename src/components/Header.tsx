@@ -27,6 +27,15 @@ export function Header() {
   const [isSignUpFormModalOpen, setSignUpFormModalOpen] = useState(false);
 
   const renderWebMenu = () => {
+    console.log(userInfo);
+    if(userInfo) {
+      return(
+        <nav className="gap-8 ml-auto hidden font-poppins md:flex">
+          <p>{userInfo.user_metadata.full_name}</p>
+        </nav>
+      )
+    }
+
     return (
       <nav className="gap-8 ml-auto hidden font-poppins md:flex">
         {/*
@@ -36,15 +45,11 @@ export function Header() {
         </div>
         */}
 
-        {userInfo ? userInfo.user_metadata.full_name :
-          (<>
-            <button className="text-primary-500 hover:underline" onClick={() => setLoginModalOpen(true)}>
-              Login
-            </button>
+        <button className="text-primary-500 hover:underline" onClick={() => setLoginModalOpen(true)}>
+          Login
+        </button>
 
-            <Button title="Criar uma conta" onPress={() => setSignUpModalOpen(true)} variant="outlined" />
-          </>
-          )}
+        <Button title="Criar uma conta" onPress={() => setSignUpModalOpen(true)} variant="outlined" />
       </nav>
     )
   }
@@ -56,36 +61,6 @@ export function Header() {
         <Button title="Criar uma conta" onPress={() => setSignUpModalOpen(true)} variant="filled" />
       </div>
     );
-  }
-
-  const handleLoginGoogle = async () => {
-    console.log("Login com Google");
-
-    const response = await supabase.auth.signInWithOAuth({
-      provider: "google"
-    })
-
-
-    const { data, error } = await supabase?.auth.getUser();
-
-    if (error) {
-      console.log(error);
-      return;
-    }
-
-    localStorage.setItem("userLogado", JSON.stringify(data));
-
-  }
-
-  const login = async () => {
-    const { data, error } = await supabase?.auth.getUser();
-
-    if (error) {
-      console.log(error);
-      return;
-    }
-
-    localStorage.setItem("userLogado", JSON.stringify(data));
   }
 
   return (
@@ -110,26 +85,25 @@ export function Header() {
         </div>
         {renderMobileMenu()}
       </header>
+
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setLoginModalOpen(false)}
         setSignUpModalOpen={setSignUpModalOpen}
       />
+
       <SignUpModal
         isOpen={isSignUpModalOpen}
         onClose={() => setSignUpModalOpen(false)}
         setLoginModalOpen={setLoginModalOpen}
-        handleSignUp={() => {
-          setSignUpModalOpen(false);
-          setSignUpFormModalOpen(true);
-        }}
-
       />
 
       <SignUpFormModal
-        isOpen={isSignUpFormModalOpen}
+        isOpen={
+          // ! Colocar a verificação de se o usuário está logado MAS nao tem ocupação e/ou instituição aqui
+          isSignUpFormModalOpen
+        }
         onClose={() => setSignUpFormModalOpen(false)}
-      // authData={authData}
       />
     </>
   )

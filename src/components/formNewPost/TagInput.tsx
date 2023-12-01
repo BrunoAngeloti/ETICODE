@@ -17,17 +17,22 @@ export function TagInput({ selectedTags, setSelectedTags }: TagInputProps) {
   };
 
   const renderTags = () => {
-    return tags.map(tag => (
-      <div
-        key={tag.tag}
-        className={`cursor-pointer px-4 py-1 rounded-2xl font-inter ${
-          selectedTags.includes(tag) ? getTagColor(tag) + ' text-white' : 'bg-primary-50 text-grey-500'
-        }`}
-        onClick={() => handleTagChange(tag)}
-      >
-        {tag.tag}
-      </div>
-    ));
+    return tags.map(tag => {
+      const isSelected = selectedTags.some(t => t.tag === tag.tag);
+
+      const backgroundColor = isSelected ? getTagColor(tag) : 'bg-primary-50';
+      const textColor = isSelected ? 'text-white' : 'text-grey-500';
+
+      return(
+        <div
+          key={tag.tag}
+          className={`cursor-pointer px-4 py-1 rounded-2xl font-inter ${backgroundColor} ${textColor}`}
+          onClick={() => handleTagChange(tag)}
+        >
+          {tag.tag}
+        </div>
+      )
+    });
   };
 
 	return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { TitleInput } from '@/components/formNewPost/TitleInput';
 import type { Tag } from '@/types/Blog';
@@ -14,8 +14,35 @@ export default function NewPost() {
   const [descriptionValue, setDescriptionValue] = useState('')
   const [fileData, setFileData] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [isLoadedFromLocalStorage, setIsLoadedFromLocalStorage] = useState(false);
 
-  function handlePublish() {
+  const cleanContent = (content: string) => {
+    return content.replace(/<p><br><\/p>/g, '');
+  };
+
+  function cleanState() {
+    setTextValue('');
+    setTitleValue('');
+    setDescriptionValue('');
+    setFileData(null);
+    setSelectedTags([]);
+  }
+
+  useEffect(() => {
+    const savedData = localStorage.getItem('draftPost');
+
+    if (savedData) {
+      const draft = JSON.parse(savedData);
+      
+      setTextValue(draft.textValue || '');
+      setTitleValue(draft.titleValue || '');
+      setDescriptionValue(draft.descriptionValue || '');
+      setSelectedTags(draft.selectedTags || []);
+      setIsLoadedFromLocalStorage(true);
+    }
+  }, []);
+  
+  const handlePublish = () => {
     console.log({
       textValue,
       titleValue,
@@ -23,12 +50,35 @@ export default function NewPost() {
       fileData,
       selectedTags
     })
-  }
+
+    localStorage.removeItem('draftPost');
+    cleanState();
+  };
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+        if(!cleanContent(textValue) && !titleValue && !descriptionValue && !selectedTags.length) return;
+
+        e.preventDefault();
+        e.returnValue = ''; 
+
+        const dataToSave = JSON.stringify({ textValue, titleValue, descriptionValue, selectedTags });
+        localStorage.setItem('draftPost', dataToSave);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [textValue, titleValue, descriptionValue, selectedTags]);
+
+  const textTitle = isLoadedFromLocalStorage ? "Criar nova publicação (Rascunho salvo)" : "Criar nova publicação";
 
   return (
     <main className="w-full flex flex-col items-center min-h-screen">
       <section className="w-full max-w-7xl px-6 lg:px-10 font-poppins">
-        <Title text="Criar nova publicação" />
+        <Title text={textTitle} />
 
         <TitleInput titleValue={titleValue} setTitleValue={setTitleValue} />
 

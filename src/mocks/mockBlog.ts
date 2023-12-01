@@ -21,7 +21,7 @@ export const mockBlogs = [
     authorId: '1'
   },
   {
-    title: 'A era da robótica: O que podemos fazer',	
+    title: 'A era da robótica: O que podemos fazer',
     description: 'A computação é uma área que tem sido dominada por homens, mas isso não significa que deva ser assim. O que podemos fazer para mudar isso?',
     content: 'A computação é uma área que tem sido dominada por homens, mas isso não significa que deva ser assim. O que podemos fazer para mudar isso?',
     tags: [

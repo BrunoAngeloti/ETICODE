@@ -1,5 +1,7 @@
+import { supabase } from "@/lib/initSupabase";
 import Modal from "../Modal";
 import { FcGoogle } from "react-icons/fc";
+import { useUserInfo } from "@/context/UserContext";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -7,23 +9,32 @@ interface LoginModalProps {
   setSignUpModalOpen: (value: boolean) => void;
 }
 
-export function LoginModal({ isOpen, onClose, setSignUpModalOpen }: LoginModalProps){
-  function changeModal(){
+
+
+export function LoginModal({ isOpen, onClose, setSignUpModalOpen }: LoginModalProps) {
+  const { userInfo, signOut, loading } = useUserInfo();
+
+  function changeModal() {
     onClose();
     setSignUpModalOpen(true);
   }
 
-  return(
+  async function handleLoginGoogle() {
+    console.log(userInfo)
+    localStorage.setItem("userLogado Final", JSON.stringify(userInfo));
+  }
+
+  return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="font-poppins flex flex-col item-center text-center">
         <h1 className="font-semibold text-grey-500 text-2xl">ENTRAR</h1>
         <p className="font-medium text-grey-300 text-sm mt-1">
-          Novo usuário? 
+          Novo usuário?
           <span className="underline cursor-pointer ml-1" onClick={changeModal}>Criar uma conta</span>
         </p>
 
-        <button 
-          onClick={() => alert("Em breve")}
+        <button
+          onClick={handleLoginGoogle}
           className="py-2 px-5 text-grey-300 font-medium flex flex-row items-center justify-center bg-white border border-primary-50 rounded mt-4 hover:shadow-sm transition-shadow"
         >
           <FcGoogle className="mr-2" size={20} />

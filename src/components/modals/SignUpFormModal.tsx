@@ -37,7 +37,7 @@ export function SignUpFormModal({ isOpen, onClose }: SignUpFormModalProps) {
         </div>
 
 
-        {/*! Esse botão para fazer a chamada para o backend */}
+        {/*! bolacha Esse botão para fazer a chamada para o backend */}
         <Button title="Cadastrar" onPress={() => alert("Em breve")} icon={FaRegSave} fullWidth />
       </div>
     </Modal>

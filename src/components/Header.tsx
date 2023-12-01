@@ -100,7 +100,7 @@ export function Header() {
 
       <SignUpFormModal
         isOpen={
-          // ! Colocar a verificação de se o usuário está logado MAS nao tem ocupação e/ou instituição aqui
+          // ! bolacha Colocar a verificação de se o usuário está logado MAS nao tem ocupação e/ou instituição aqui
           isSignUpFormModalOpen
         }
         onClose={() => setSignUpFormModalOpen(false)}

@@ -20,9 +20,14 @@ export function PlayGame(){
           Quer testar suas convicções éticas? Explore nosso simulador interativo e enfrente dilemas desafiadores. Cada escolha revela um novo aspecto da ética na computação. Está preparado para decidir?
         </p>
 
-        <div className="flex flex-col md:flex-row gap-4 mt-6 w-full justify-center">
+        <a 
+          href="https://take.quiz-maker.com/QTI15926T"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col md:flex-row gap-4 mt-6 w-full justify-center"
+        >
           <Button title="Testar agora!" onPress={() => {}} />
-        </div>
+        </a>
       </div>
       <Image
         src="/playGameImageRight.svg"

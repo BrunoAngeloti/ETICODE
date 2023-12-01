@@ -8,3 +8,43 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.output p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #4a4a4a;
+}
+
+.output h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2a2a2a; 
+}
+
+.output a {
+  color: #1685b1;
+}
+
+/* Estilo para listas ordenadas */
+.output ol {
+  list-style-type: decimal;
+  padding-left: 1rem; /* Espaço à esquerda para a numeração */
+}
+
+/* Estilo para itens de lista */
+.output li {
+  margin-bottom: 0.5rem; /* Espaçamento entre itens */
+  font-size: 1rem; /* Tamanho do texto */
+}
+
+.output ul {
+  list-style-type: disc;
+  padding-left: 1rem; /* Espaço à esquerda para os discos */
+}
+
+.output blockquote {
+  border-left: 4px solid #e2e8f0; /* Cor da borda esquerda */
+  background-color: #f8fafc; /* Cor de fundo */
+  padding: 1rem; /* Espaçamento interno */
+  font-style: italic; /* Estilo itálico */
+}

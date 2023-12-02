@@ -11,13 +11,16 @@ interface BlogCardHomeProps {
 export function BlogCardHome({ blog }: BlogCardHomeProps){
   return(
     <div className="flex flex-col w-full relative">
-      <Image 
-        src={blog.coverImage} 
-        alt={blog.title} 
-        width={520}
-        height={375}
-        className="rounded-sm mb-1 w-full" 
-      />
+      <div className="relative w-full h-56 mb-1">
+        <Image 
+          src={blog.coverImage} 
+          alt={blog.title} 
+          fill
+          quality={100}
+          className="rounded-sm object-cover" 
+        />
+      </div>
+      
 
       <div className="flex flex-row gap-2 items-center mt-2 flex-wrap">
         {blog.tags.map(tag => (

@@ -5,20 +5,46 @@ interface ButtonProps {
   onPress: () => void;
   title: string;
   variant?: 'filled' | 'outlined';
+  color?: 'primary' | 'red';
   icon?: IconType;
   fullWidth?: boolean;
+  fullWidthMobile?: boolean;
+  disabled?: boolean;
 }
 
-export function Button({ onPress, title, variant = 'filled', icon: Icon, fullWidth = false }: ButtonProps) {
+export function Button({
+  onPress,
+  title,
+  variant = 'filled',
+  color = 'primary',
+  icon: Icon,
+  fullWidth = false,
+  fullWidthMobile = false,
+  disabled = false
+}: ButtonProps) {
+
+  const baseStyle = 'font-poppins font-medium py-2 px-8 rounded-3xl transition-colors duration-300 flex flex-row items-center justify-center';
+  const fullWidthStyle = fullWidthMobile ? 'w-full md:w-fit' : fullWidth ? 'w-full' : 'w-auto';
+  const disabledStyle = disabled ? 'opacity-50 cursor-not-allowed' : '';
+  
+  const colorStyles = {
+    primary: {
+      filled: 'bg-primary-500 hover:bg-primary-700 text-white',
+      outlined: 'bg-transparent border-2 border-primary-500 hover:bg-primary-500 text-primary-500 hover:text-white'
+    },
+    red: {
+      filled: 'bg-red-500 hover:bg-red-700 text-white',
+      outlined: 'bg-transparent border-2 border-red-500 hover:bg-red-500 text-red-500 hover:text-white'
+    }
+  };
+
+  const variantStyle = colorStyles[color][variant];
+
   return (
     <button
       onClick={onPress}
-      className={`font-poppins font-medium py-2 px-8 rounded-3xl transition-colors duration-300 flex flex-row items-center justify-center
-        ${variant === 'filled' ?
-          'bg-primary-500 hover:bg-primary-700 text-white' : 
-          'bg-transparent border-2 border-primary-500 hover:bg-primary-500 text-primary-500 hover:text-white'
-        } ${fullWidth ? 'w-full' : 'w-auto'}`
-      }
+      className={`${baseStyle} ${variantStyle} ${fullWidthStyle} ${disabledStyle}`}
+      disabled={disabled}
     >
       {Icon && <Icon className="mr-2" />}
       {title}

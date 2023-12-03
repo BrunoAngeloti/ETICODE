@@ -10,6 +10,7 @@ import { Title } from '@/components/Title';
 import { FaTrash } from 'react-icons/fa';
 import { MdPublish } from 'react-icons/md';
 import { DeleteConfirmationModal } from '@/components/modals/DeleteConfirmationModal';
+import { Button } from '@/components/Button';
 
 export default function NewPost() {
   const [textValue, setTextValue] = useState('');
@@ -99,23 +100,10 @@ export default function NewPost() {
         <TextInput textValue={textValue} setTextValue={setTextValue} />
 
 
-        <div className='flex flex-col-reverse md:flex-row items-center ml-0 md:ml-auto gap-4 mt-20'>
-          <button 
-            onClick={() => setIsOpenDeleteConfirmationModal(true)} 
-            disabled={disableDelete}
-            className="flex flex-row items-center justify-center gap-2 w-full md:w-fit py-2 px-14 bg-transparent border-2 border-red-500 rounded-3xl text-red-500 font-medium text-lg transition duration-300 disabled:border-red-200 disabled:text-red-200 disabled:cursor-not-allowed hover:border-red-700 hover:text-border-red-700"
-          >
-            <FaTrash size={20} />
-            Limpar tudo
-          </button>
-          <button 
-            onClick={handlePublish} 
-            disabled={disablePublish}
-            className="flex flex-row items-center justify-center gap-2 w-full md:w-fit disabled:bg-primary-200 py-2 px-16 bg-primary-500 rounded-3xl text-white font-medium text-lg hover:bg-primary-700 transition duration-300"
-          >
-            <MdPublish size={20} />
-            Publicar
-          </button>
+        <div className='flex flex-col-reverse md:flex-row items-center ml-0 md:ml-auto gap-4 mt-20'>         
+          <Button onPress={() => setIsOpenDeleteConfirmationModal(true)} disabled={disableDelete} fullWidthMobile title="Limpar tudo" icon={FaTrash} variant="outlined" color="red" />
+          <Button onPress={handlePublish} disabled={disablePublish} title="Publicar" icon={MdPublish} fullWidthMobile variant="filled" color="primary" />
+          
         </div>
       </section>
       <DeleteConfirmationModal isOpen={isOpenDeleteConfirmationModal} onClose={() => setIsOpenDeleteConfirmationModal(false)} handleConfirm={cleanState} />

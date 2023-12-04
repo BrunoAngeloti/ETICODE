@@ -11,7 +11,7 @@ export default function Home() {
         <Hero />
         <PopularPosts />
         <PlayGame />
-        <div className="w-full grid grid-cols-3 mt-10 gap-20">
+        <div className="w-full grid grid-cols-3 mt-10 gap-10">
           <LastPosts />
           <PopularTags />
         </div>

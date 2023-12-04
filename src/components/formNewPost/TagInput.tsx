@@ -1,5 +1,6 @@
 import { Tag } from "@/types/Blog";
 import { getTagColor } from "@/utils/colors";
+import { showResponseMessage } from "@/utils/responseMessage";
 import { tags } from "@/utils/tags";
 
 interface TagInputProps {
@@ -12,9 +13,14 @@ export function TagInput({ selectedTags, setSelectedTags }: TagInputProps) {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter(t => t.tag !== tag.tag));
     } else {
-      setSelectedTags([...selectedTags, tag]);
+      if (selectedTags.length < 3) {
+        setSelectedTags([...selectedTags, tag]);
+      } else {
+        showResponseMessage("Você só pode selecionar até 3 tags.");
+      }
     }
   };
+
 
   const renderTags = () => {
     return tags.map(tag => {
@@ -37,7 +43,7 @@ export function TagInput({ selectedTags, setSelectedTags }: TagInputProps) {
 
 	return (
 		<div className='mt-5 flex flex-col gap-2'>
-			<label className="text-lg font-semibold text-grey-500">Tags*</label>
+			<label className="text-lg font-semibold text-grey-500">Tags* (máximo 3)</label>
 			<div className='mt-1 flex flex-wrap gap-2'>
 				{renderTags()}
 			</div>

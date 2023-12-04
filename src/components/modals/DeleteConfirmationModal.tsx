@@ -24,13 +24,10 @@ export function DeleteConfirmationModal({ isOpen, onClose, handleConfirm }: Dele
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="font-poppins flex flex-col item-center text-center justify-center">
         <h1 className="font-semibold text-grey-500 text-2xl">Deseja limpar os dados?</h1>
-        <p className="font-medium text-grey-300 text-base mt-2">
-          Todos os dados serão perdidos.
-        </p>
 
-        <div className="flex flex-row gap-2 items-center justify-center w-full mt-4">
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full mt-6">
           <Button title="Cancelar" onPress={onClose} fullWidth variant="outlined"/>
-          <Button title="Limpar" onPress={handleConfirmDelete} icon={FaTrash} fullWidth variant="filled"/>
+          <Button title="Limpar" onPress={handleConfirmDelete} icon={FaTrash} fullWidth variant="filled" color="red"/>
         </div>
       </div>
     </Modal>

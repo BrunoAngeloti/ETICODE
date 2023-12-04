@@ -1,25 +1,12 @@
+import { showResponseMessage } from '@/utils/responseMessage';
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 interface MyDropzoneProps {
 	setSelectedFile: (value: File) => void;
 }
 
 export function MyDropzone({ setSelectedFile }: MyDropzoneProps) {
-	const showResponseMessage = (message: string, type: "error" | "success" = "error") => {
-		toast(message, {
-			position: "top-right",
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			draggable: true,
-			theme: "light",
-			type
-		});
-	};
-
 	const isImageFile = (file: File) => file.type.startsWith("image/");
 
 	const onDrop = useCallback((acceptedFiles: File[]) => {

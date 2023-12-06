@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 
 import { TitleInput } from '@/components/formNewPost/TitleInput';
 import type { Tag } from '@/types/Blog';
@@ -11,8 +11,12 @@ import { FaTrash } from 'react-icons/fa';
 import { MdPublish } from 'react-icons/md';
 import { DeleteConfirmationModal } from '@/components/modals/DeleteConfirmationModal';
 import { Button } from '@/components/Button';
+import { supabase } from '@/lib/initSupabase';
+import { useUserInfo } from '@/context/UserContext';
+import { useRouter } from 'next/router';
 
 export default function NewPost() {
+  const { userInfo } = useUserInfo();
   const [textValue, setTextValue] = useState('');
   const [titleValue, setTitleValue] = useState('')
   const [descriptionValue, setDescriptionValue] = useState('')
@@ -20,6 +24,9 @@ export default function NewPost() {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [isLoadedFromLocalStorage, setIsLoadedFromLocalStorage] = useState(false);
   const [isOpenDeleteConfirmationModal, setIsOpenDeleteConfirmationModal] = useState(false);
+  const [image, setImage] = useState(null)
+
+  const route = useRouter()
 
   const cleanContent = (content: string) => {
     return content.replace(/<p><br><\/p>/g, '');
@@ -39,7 +46,7 @@ export default function NewPost() {
 
     if (savedData) {
       const draft = JSON.parse(savedData);
-      
+
       setTextValue(draft.textValue || '');
       setTitleValue(draft.titleValue || '');
       setDescriptionValue(draft.descriptionValue || '');
@@ -47,8 +54,29 @@ export default function NewPost() {
       setIsLoadedFromLocalStorage(true);
     }
   }, []);
-  
-  const handlePublish = () => {
+
+  const handlePublish = async () => {
+
+    supabase.from('Post').insert([
+      {
+        title: titleValue,
+        description: descriptionValue,
+        content: textValue,
+        tags: selectedTags.map(tag => tag.tag),
+        authorId: userInfo?.id,
+        authorName: userInfo?.user_metadata.full_name,
+        authorImage: userInfo?.user_metadata.avatar_url,
+        coverImage: "https://hostbits.com.br/blog/wp-content/uploads/2021/11/blog-wordpress.png"
+      },
+    ])
+      .then(({ data, error }) => {
+        if (error) {
+          console.log(error)
+          return
+        }
+        console.log(data)
+      })
+
     console.log({
       textValue,
       titleValue,
@@ -56,19 +84,20 @@ export default function NewPost() {
       fileData,
       selectedTags
     })
-  
+
     cleanState();
+    route.push('/publicado');
   };
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-        if(!cleanContent(textValue) && !titleValue && !descriptionValue && !selectedTags.length) return;
+      if (!cleanContent(textValue) && !titleValue && !descriptionValue && !selectedTags.length) return;
 
-        e.preventDefault();
-        e.returnValue = ''; 
+      e.preventDefault();
+      e.returnValue = '';
 
-        const dataToSave = JSON.stringify({ textValue, titleValue, descriptionValue, selectedTags });
-        localStorage.setItem('draftPost', dataToSave);
+      const dataToSave = JSON.stringify({ textValue, titleValue, descriptionValue, selectedTags });
+      localStorage.setItem('draftPost', dataToSave);
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -96,14 +125,14 @@ export default function NewPost() {
         </div>
 
         <TagInput selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
-        
+
         <TextInput textValue={textValue} setTextValue={setTextValue} />
 
 
-        <div className='flex flex-col-reverse md:flex-row items-center ml-0 md:ml-auto gap-4 mt-20'>         
+        <div className='flex flex-col-reverse md:flex-row items-center ml-0 md:ml-auto gap-4 mt-20'>
           <Button onPress={() => setIsOpenDeleteConfirmationModal(true)} disabled={disableDelete} fullWidthMobile title="Limpar tudo" icon={FaTrash} variant="outlined" color="red" />
           <Button onPress={handlePublish} disabled={disablePublish} title="Publicar" icon={MdPublish} fullWidthMobile variant="filled" color="primary" />
-          
+
         </div>
       </section>
       <DeleteConfirmationModal isOpen={isOpenDeleteConfirmationModal} onClose={() => setIsOpenDeleteConfirmationModal(false)} handleConfirm={cleanState} />

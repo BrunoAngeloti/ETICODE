@@ -16,17 +16,17 @@ export default function Post({ post }: PostProps) {
 
         <div className="flex flex-row w-full items-center justify-between mt-8">
           <div className="flex flex-row gap-3 items-center">
-            <Image src={post.authorImage} alt={post.authorName} width={40} height={40} className="rounded-full"/>
+            <Image src={post.authorImage} alt={post.authorName} width={40} height={40} className="rounded-full" />
             <p className="text-grey-500 font-medium text-base">{post.authorName}</p>
           </div>
           <p className="text-grey-200 font-medium text-base">{convertDate(post.createdAt)}</p>
         </div>
 
-        <Image src={post.coverImage} alt={post.title} width={1024} height={800} quality={100} className="rounded-lg my-8"/>
+        <Image src={post.coverImage} alt={post.title} width={1024} height={800} quality={100} className="rounded-lg my-8" />
 
-        <div 
-          className="output font-inter" 
-          dangerouslySetInnerHTML={{ __html: post.content }} 
+        <div
+          className="output font-inter"
+          dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </section>
     </main>
@@ -39,6 +39,7 @@ export async function getStaticPaths() {
   const ids = ['1', '2', '3', '4', '5'];
 
   // Criamos os caminhos (paths) com esses IDs.
+  // adicionar todos os ids nesse path
   const paths = ids.map(id => ({
     params: { id },
   }));
@@ -51,6 +52,7 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps({ params }: any) {
+  //pesquisa post pelo id e retorna ele
   const mockBlog = {
     ...mockBlogs[1],
   };

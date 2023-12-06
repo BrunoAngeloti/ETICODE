@@ -7,10 +7,10 @@ export type Blog = {
   description: string;
   content: string;
   tags: Tag[];
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   coverImage: string;
   authorName: string;
   authorId: string;
+  authorImage: string;
 }

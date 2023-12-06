@@ -1,6 +1,7 @@
 import { supabase } from "@/lib/initSupabase";
 import Modal from "../Modal";
 import { FcGoogle } from "react-icons/fc";
+import { useEffect } from "react";
 
 interface LoginModalProps {
   isOpen: boolean;

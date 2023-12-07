@@ -13,8 +13,8 @@ export const mockBlogs = [
         tag: 'Igualdade'
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdat: new Date().toISOString(),
+    updatedat: new Date().toISOString(),
     coverImage: '/mocks/mockblog3.png',
     authorName: 'Maria Eduarda',
     authorId: '1',
@@ -35,8 +35,8 @@ export const mockBlogs = [
         tag: 'Ética'
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdat: new Date().toISOString(),
+    updatedat: new Date().toISOString(),
     coverImage: '/mocks/mockblog1.png',
     authorName: 'Bruno Angeloti',
     authorId: '2',
@@ -54,8 +54,8 @@ export const mockBlogs = [
         tag: 'Igualdade'
       }
     ],
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdat: new Date().toISOString(),
+    updatedat: new Date().toISOString(),
     coverImage: '/mocks/mockblog2.png',
     authorName: 'Maria Eduarda',
     authorId: '3',

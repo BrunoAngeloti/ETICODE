@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Router from 'next/router'; // Importe o Router do Next.js
+import { useRouter } from 'next/router'; // Importe o Router do Next.js
 
 import Confetti from 'react-confetti'
 
@@ -9,6 +9,14 @@ export default function Published(){
   const [width, setWidth] = useState<number>(0);
   const [timer, setTimer] = useState(10); // Estado para o timer
   const confetiRef = useRef<HTMLElement | null>(null);
+  const route = useRouter()
+  const id = route.query.id;
+
+  useEffect(() => {
+    if (id === undefined) {
+      route.push('/');
+    }
+  }, [id, route]);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -25,7 +33,7 @@ export default function Published(){
       setTimer((prevTimer) => {
         if (prevTimer === 1) {
           clearInterval(countdown);
-          Router.push('/pagina-destino');
+          route.push(`/post/${id}`);
         }
         return prevTimer - 1;
       });

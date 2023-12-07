@@ -1,6 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import Modal from "../Modal";
 import { supabase } from "@/lib/initSupabase";
+import { useEffect } from "react";
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -15,17 +16,17 @@ export function SignUpModal({ isOpen, onClose, setLoginModalOpen }: SignUpModalP
   }
 
   async function signUpWithGoogle() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google"
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
     })
-
-    if (error) {
-      console.log(error);
-      return;
-    }
 
     onClose()
   }
+
+  useEffect(() => {
+    if(isOpen) document.body.style.overflowY = 'hidden'
+    else document.body.style.overflowY = 'visible'
+  }, [isOpen])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

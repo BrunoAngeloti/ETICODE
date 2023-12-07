@@ -1,5 +1,6 @@
 import React from 'react';
 import { IconType } from 'react-icons';
+import { LoadingSpin } from './LoadingSpin';
 
 interface ButtonProps {
   onPress: () => void;
@@ -10,6 +11,7 @@ interface ButtonProps {
   fullWidth?: boolean;
   fullWidthMobile?: boolean;
   disabled?: boolean;
+  loading?: boolean;
 }
 
 export function Button({
@@ -20,7 +22,8 @@ export function Button({
   icon: Icon,
   fullWidth = false,
   fullWidthMobile = false,
-  disabled = false
+  disabled = false,
+  loading = false
 }: ButtonProps) {
 
   const baseStyle = 'font-poppins font-medium py-2 px-8 rounded-3xl transition-colors duration-300 flex flex-row items-center justify-center';
@@ -44,10 +47,10 @@ export function Button({
     <button
       onClick={onPress}
       className={`${baseStyle} ${variantStyle} ${fullWidthStyle} ${disabledStyle}`}
-      disabled={disabled}
+      disabled={disabled || loading}
     >
-      {Icon && <Icon className="mr-2" />}
-      {title}
+      {loading ? <LoadingSpin /> : Icon && <Icon />}
+      <span className="ml-2">{title}</span>
     </button>
   );
 }

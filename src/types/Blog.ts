@@ -7,8 +7,8 @@ export type Blog = {
   description: string;
   content: string;
   tags: Tag[];
-  createdAt: string;
-  updatedAt: string;
+  createdat: string;
+  updatedat: string;
   coverImage: string;
   authorName: string;
   authorId: string;

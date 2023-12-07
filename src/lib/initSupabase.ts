@@ -22,5 +22,16 @@ export const supabase = createClient(
     options
 )
 
-// Variável para armazenar o token de acesso atual
 let currentAccessToken: any = null;
+
+// Atualiza o token de acesso sempre que o estado da autenticação muda
+supabase.auth.onAuthStateChange((event, session) => {
+  currentAccessToken = session?.access_token ?? null;
+});
+
+export const getAccessToken = async () => {
+    if(currentAccessToken) return currentAccessToken;
+    const session = await supabase.auth.getSession();
+    currentAccessToken = session?.data?.session?.access_token ?? null;
+    return currentAccessToken;
+};

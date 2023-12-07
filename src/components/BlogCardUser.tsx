@@ -20,7 +20,7 @@ export function BlogCardUser({ blog }: BlogCardUserProps){
               <Tag key={tag.tag} tag={tag} />
             ))}
           </div>
-          <p className="text-grey-200 font-medium text-sm ml-auto">{convertDate(blog.createdAt)}</p>
+          <p className="text-grey-200 font-medium text-sm ml-auto">{convertDate(blog.createdat)}</p>
         </div>
       </div>
 

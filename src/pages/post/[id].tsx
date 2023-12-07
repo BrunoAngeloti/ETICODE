@@ -1,4 +1,4 @@
-import { mockBlogs } from "@/mocks/mockBlog";
+import { getTable } from "@/services/table";
 import { Blog } from "@/types/Blog";
 import { convertDate } from "@/utils/time";
 import Image from "next/image";
@@ -19,7 +19,7 @@ export default function Post({ post }: PostProps) {
             <Image src={post.authorImage} alt={post.authorName} width={40} height={40} className="rounded-full" />
             <p className="text-grey-500 font-medium text-base">{post.authorName}</p>
           </div>
-          <p className="text-grey-200 font-medium text-base">{convertDate(post.createdAt)}</p>
+          <p className="text-grey-200 font-medium text-base">{convertDate(post.createdat)}</p>
         </div>
 
         <Image src={post.coverImage} alt={post.title} width={1024} height={800} quality={100} className="rounded-lg my-8" />
@@ -33,38 +33,21 @@ export default function Post({ post }: PostProps) {
   );
 }
 
-export async function getStaticPaths() {
-  // Aqui, criamos um número limitado de IDs mockados. 
-  // Você pode ajustar este número conforme a necessidade.
-  const ids = ['1', '2', '3', '4', '5'];
+export async function getServerSideProps(context: any) {
+  const { id } = context.query;
 
-  // Criamos os caminhos (paths) com esses IDs.
-  // adicionar todos os ids nesse path
-  const paths = ids.map(id => ({
-    params: { id },
-  }));
+  const post = await getTable("Post", id);
 
-  return {
-    paths,
-    fallback: 'blocking', // ou 'true' se você quiser carregar os dados no lado do cliente
-  };
-}
-
-
-export async function getStaticProps({ params }: any) {
-  //pesquisa post pelo id e retorna ele
-  const mockBlog = {
-    ...mockBlogs[1],
-  };
-
-  if (false) {
-    return { notFound: true };
+  if (!post) {
+    return {
+      notFound: true,
+    };
   }
+
 
   return {
     props: {
-      post: mockBlog,
+      post: post[0],
     },
-    revalidate: 60,
   };
 }

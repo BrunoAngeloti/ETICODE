@@ -14,6 +14,8 @@ import { Button } from '@/components/Button';
 import { supabase } from '@/lib/initSupabase';
 import { useUserInfo } from '@/context/UserContext';
 import { useRouter } from 'next/router';
+import { uploadNewImage } from '@/utils/fileStorage';
+import { postTable } from '@/services/table';
 
 export default function NewPost() {
   const { userInfo } = useUserInfo();
@@ -24,7 +26,7 @@ export default function NewPost() {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [isLoadedFromLocalStorage, setIsLoadedFromLocalStorage] = useState(false);
   const [isOpenDeleteConfirmationModal, setIsOpenDeleteConfirmationModal] = useState(false);
-  const [image, setImage] = useState(null)
+  const [isLoading, setIsLoading] = useState(false);
 
   const route = useRouter()
 
@@ -56,37 +58,30 @@ export default function NewPost() {
   }, []);
 
   const handlePublish = async () => {
+    try {
+      setIsLoading(true);
+  
+      const newImage = await uploadNewImage(fileData);
 
-    supabase.from('Post').insert([
-      {
-        title: titleValue,
-        description: descriptionValue,
-        content: textValue,
-        tags: selectedTags.map(tag => tag.tag),
-        authorId: userInfo?.id,
-        authorName: userInfo?.user_metadata.full_name,
-        authorImage: userInfo?.user_metadata.avatar_url,
-        coverImage: "https://hostbits.com.br/blog/wp-content/uploads/2021/11/blog-wordpress.png"
-      },
-    ])
-      .then(({ data, error }) => {
-        if (error) {
-          console.log(error)
-          return
-        }
-        console.log(data)
-      })
-
-    console.log({
-      textValue,
-      titleValue,
-      descriptionValue,
-      fileData,
-      selectedTags
-    })
-
-    cleanState();
-    route.push('/publicado');
+      const data = await postTable("Post", { 
+        title: titleValue, 
+        description: descriptionValue, 
+        content: textValue, 
+        tags: selectedTags.map(tag => tag.tag), 
+        authorId: userInfo?.id, 
+        authorName: userInfo?.name, 
+        authorImage: userInfo?.photo, 
+        coverImage: newImage 
+      });
+  
+      cleanState();
+      const postId = data? data[0].id : '';
+      route.push(`/publicado?id=${postId}`);
+    } catch (error) {
+      //console.error(error);
+    } finally {
+      setIsLoading(false); 
+    }
   };
 
   useEffect(() => {
@@ -131,8 +126,7 @@ export default function NewPost() {
 
         <div className='flex flex-col-reverse md:flex-row items-center ml-0 md:ml-auto gap-4 mt-20'>
           <Button onPress={() => setIsOpenDeleteConfirmationModal(true)} disabled={disableDelete} fullWidthMobile title="Limpar tudo" icon={FaTrash} variant="outlined" color="red" />
-          <Button onPress={handlePublish} disabled={disablePublish} title="Publicar" icon={MdPublish} fullWidthMobile variant="filled" color="primary" />
-
+          <Button loading={isLoading} onPress={handlePublish} disabled={disablePublish} title="Publicar" icon={MdPublish} fullWidthMobile variant="filled" color="primary" />
         </div>
       </section>
       <DeleteConfirmationModal isOpen={isOpenDeleteConfirmationModal} onClose={() => setIsOpenDeleteConfirmationModal(false)} handleConfirm={cleanState} />

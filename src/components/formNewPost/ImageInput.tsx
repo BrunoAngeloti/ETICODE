@@ -2,7 +2,6 @@ import Image from "next/image";
 import { MyDropzone } from "../MyDropzone";
 import { useEffect, useState } from "react"
 import { FaTrash } from "react-icons/fa";
-import { supabase } from "@/lib/initSupabase";
 
 interface ImageInputProps {
   fileData: File | null;
@@ -13,33 +12,8 @@ export function ImageInput({ fileData, setFileData }: ImageInputProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [showTrashIcon, setShowTrashIcon] = useState(false);
 
-  async function uploadToSupabase(file: File) {
-    if (!file) return;
-    console.log(file)
-
-    const filePath = `${file.name}` // Altere para a estrutura de caminho desejada
-
-    const { data, error } = await supabase.storage
-      .from('post-fotos')
-      .upload(Math.random().toString(36).substring(2), file, {
-        cacheControl: '3600',
-        upsert: true
-      })
-
-    if (error) {
-      console.error('Error uploading file:', error)
-      return;
-    }
-
-    console.log('File uploaded:', data)
-  }
-
-
-
   useEffect(() => {
     if (fileData) {
-      console.log('fileData')
-      console.log(fileData)
       const url = URL.createObjectURL(fileData);
       setPreviewUrl(url);
 

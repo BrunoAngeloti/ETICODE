@@ -15,8 +15,7 @@ import { useUserInfo } from "@/context/UserContext";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [authData, setAuthData] = useState({});
-  const { userInfo, signOut, loading } = useUserInfo();
+  const { userInfo } = useUserInfo();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -24,27 +23,29 @@ export function Header() {
 
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
-  const [isSignUpFormModalOpen, setSignUpFormModalOpen] = useState(false);
 
   const renderWebMenu = () => {
-    console.log(userInfo);
     if(userInfo) {
       return(
-        <nav className="gap-8 ml-auto hidden font-poppins md:flex">
-          <p>{userInfo.user_metadata.full_name}</p>
-        </nav>
+        <Link 
+          href={`/user/${userInfo.id}`}
+          passHref
+          className="gap-3 ml-auto font-poppins flex flex-row items-center"
+        >
+          <p className="hidden md:flex">{userInfo.name}</p>
+          <Image 
+            src={userInfo.photo}
+            alt={userInfo.name}
+            width={32}
+            height={32}
+            className="rounded-full w-8 h-8"
+          />       
+        </Link>
       )
     }
 
     return (
       <nav className="gap-8 ml-auto hidden font-poppins md:flex">
-        {/*
-        <div className="relative flex-row items-center bg-primary-100 bg-opacity-20 rounded-3xl hidden lg:flex">
-          <IoMdSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-lg text-gray-400"/>
-          <input placeholder="pesquisar..." className="pl-12 border-none outline-none bg-transparent pr-8"/>
-        </div>
-        */}
-
         <button className="text-primary-500 hover:underline" onClick={() => setLoginModalOpen(true)}>
           Login
         </button>
@@ -79,8 +80,8 @@ export function Header() {
           {renderWebMenu()}
 
           {menuOpen ?
-            <IoMdClose className="ml-auto flex md:hidden text-primary-800 cursor-pointer" size={30} onClick={toggleMenu} /> :
-            <CgMenu className="ml-auto flex md:hidden text-primary-800 cursor-pointer" size={30} onClick={toggleMenu} />
+            <IoMdClose className={`${userInfo ? "ml-3" : "ml-auto"} flex md:hidden text-primary-800 cursor-pointer`} size={30} onClick={toggleMenu} /> :
+            <CgMenu className={`${userInfo ? "ml-3" : "ml-auto"} flex md:hidden text-primary-800 cursor-pointer`} size={30} onClick={toggleMenu} />
           }
         </div>
         {renderMobileMenu()}
@@ -100,10 +101,9 @@ export function Header() {
 
       <SignUpFormModal
         isOpen={
-          // ! bolacha Colocar a verificação de se o usuário está logado MAS nao tem ocupação e/ou instituição aqui
-          isSignUpFormModalOpen
+          (userInfo?.occupation === null || userInfo?.institution === null)
         }
-        onClose={() => setSignUpFormModalOpen(false)}
+        userInfo={userInfo}
       />
     </>
   )

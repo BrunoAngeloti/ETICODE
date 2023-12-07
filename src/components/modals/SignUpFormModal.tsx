@@ -1,44 +1,137 @@
-import { FaRegSave } from "react-icons/fa";
+import { FaEdit, FaRegSave } from "react-icons/fa";
 import Modal from "../Modal";
 import { Button } from "../Button";
 import Image from "next/image";
+
+import { useState, useRef, useEffect } from "react";
+import { uploadNewImage } from "@/utils/fileStorage";
+import { putTable } from "@/services/table";
+import { showResponseMessage } from "@/utils/responseMessage";
+import { User } from "@/types/User";
+import { MdEdit } from "react-icons/md";
 import { useUserInfo } from "@/context/UserContext";
 
 interface SignUpFormModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  userInfo: User | null;
 }
 
-export function SignUpFormModal({ isOpen, onClose }: SignUpFormModalProps) {
-  const { userInfo, signOut, loading } = useUserInfo();
+export function SignUpFormModal({ isOpen, userInfo }: SignUpFormModalProps) {
+  const { refreshUser } = useUserInfo()
+  const [name, setName] = useState(userInfo?.name);
+  const [occupation, setOccupation] = useState("");
+  const [institution, setInstitution] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | undefined>("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if(isOpen) document.body.style.overflowY = 'hidden'
+    else document.body.style.overflowY = 'visible'
+  }, [isOpen])
+
+  const handleSave = async () => {
+    if (!userInfo) return;
+
+    setLoading(true);
+
+    try {
+      let newPhotoUrl = imagePreview;
+      if (imageFile) {
+        newPhotoUrl = await uploadNewImage(imageFile) || "";
+      }
+
+      await putTable('User', userInfo?.id, {
+        name,
+        occupation,
+        institution,
+        photo: newPhotoUrl,
+      });
+
+      refreshUser(userInfo?.id || "");
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (imageFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(imageFile);
+    } else {
+      setImagePreview(userInfo?.photo || "");
+    }
+  }, [imageFile, userInfo]);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImageFile(file);
+    }
+  };
+
+  const triggerFileSelectPopup = () => fileInputRef.current?.click();
+
+  useEffect(() => {
+    setName(userInfo?.name);
+    setImagePreview(userInfo?.photo);
+  }, [userInfo]);
+
+  const disableSaveButton = !name || !occupation || !institution;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={() => {}}>
       <div className="font-poppins flex flex-col item-center text-center justify-center">
         <h1 className="font-semibold text-grey-500 text-2xl">ETICODE</h1>
 
-        <Image src="/mocks/mockperson.png" width={128} height={128} className="my-4 rounded-full mx-auto" alt="mock" />
+        <div className="relative my-4 mx-auto cursor-pointer">
+          <Image 
+            src={imagePreview || ""} 
+            width={128} 
+            height={128} 
+            className="rounded-full w-32 h-32" 
+            alt="Preview da foto do usuário" 
+            quality={100}
+            onClick={triggerFileSelectPopup} 
+          />
+          <span className="absolute bottom-0 right-0 text-white bg-primary-500 p-2 rounded-full flex items-center justify-center ">
+            <MdEdit size={14} />
+          </span>
+          <input type="file" ref={fileInputRef} className="hidden" onChange={handleImageChange} />
+        </div>
 
         <div className="flex flex-col text-left font-semibold mb-4">
           <label className="text-grey-500">Nome*</label>
           <input type="text" className="text-grey-300 border border-primary-100 bg-primary-50 rounded px-3 py-2"
-            value={userInfo?.user_metadata.full_name}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
         <div className="flex flex-col text-left font-semibold mb-4">
           <label className="text-grey-500">Ocupação*</label>
-          <input type="text" className="text-grey-300 border border-primary-100 bg-primary-50 rounded px-3 py-2" />
+          <input type="text" className="text-grey-300 border border-primary-100 bg-primary-50 rounded px-3 py-2" 
+            value={occupation}
+            onChange={(e) => setOccupation(e.target.value)}
+          />
         </div>
 
         <div className="flex flex-col text-left font-semibold mb-10">
           <label className="text-grey-500">Instituição/escola*</label>
-          <input type="text" className="text-grey-300 border border-primary-100 bg-primary-50 rounded px-3 py-2" />
+          <input type="text" className="text-grey-300 border border-primary-100 bg-primary-50 rounded px-3 py-2" 
+            value={institution}
+            onChange={(e) => setInstitution(e.target.value)}
+          />
         </div>
 
-
-        {/*! bolacha Esse botão para fazer a chamada para o backend */}
-        <Button title="Cadastrar" onPress={() => alert("Em breve")} icon={FaRegSave} fullWidth />
+        <Button disabled={disableSaveButton} loading={loading} title="Cadastrar" onPress={handleSave} icon={FaRegSave} fullWidth />
       </div>
     </Modal>
   )

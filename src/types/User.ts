@@ -1,9 +1,8 @@
-import type { Blog } from "./Blog";
-
 export type User = {
+	email: string;
 	name: string;
-	ocuppation: string;
+	occupation: string;
+	institution: string;
 	photo: string;
 	id: string;
-	blogs: Blog[];
 }

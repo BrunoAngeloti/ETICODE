@@ -1,22 +1,28 @@
 import { BlogCardUser } from "@/components/BlogCardUser";
 import { HeaderPerfilPage } from "@/components/HeaderPerfilPage";
-import { mockUser } from "@/mocks/mockUser";
+import { useUserInfo } from "@/context/UserContext";
+import { mockBlogs } from "@/mocks/mockBlog";
+import { getTable } from "@/services/table";
+import { Blog } from "@/types/Blog";
 import type { User } from "@/types/User";
 
 interface UserProps {
   user: User;
+  posts: Blog[];
 }
 
-export default function Post({ user }: UserProps) {
+export default function Post({ user, posts }: UserProps) {
+  const { userInfo, signOut } = useUserInfo();
+
   return (
     <main className="w-full flex flex-col items-center mt-8 font-inter min-h-screen">
       <section className="w-full max-w-7xl px-6 lg:px-10">
-        <HeaderPerfilPage user={user} />
+        <HeaderPerfilPage user={user} userInfo={userInfo} signOut={signOut}/>
 
         <div className="w-full h-[2px] bg-secondary-100 mt-8"></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
-          {user.blogs.map(blog => (
+          {posts.map(blog => (
             <BlogCardUser key={blog.title} blog={blog} />
           ))}
         </div>
@@ -25,32 +31,21 @@ export default function Post({ user }: UserProps) {
   );
 }
 
-export async function getStaticPaths() {
-  // Aqui, criamos um número limitado de IDs mockados. 
-  // Você pode ajustar este número conforme a necessidade.
-  const ids = ['1', '2', '3', '4', '5'];
+export async function getServerSideProps(context: any) {
+  const { id } = context.query;
 
-  // Criamos os caminhos (paths) com esses IDs.
-  const paths = ids.map(id => ({
-    params: { id },
-  }));
+  const user = await getTable("User", id);
 
-  return {
-    paths,
-    fallback: 'blocking', // ou 'true' se você quiser carregar os dados no lado do cliente
-  };
-}
-
-
-export async function getStaticProps({ params }: any) {
-  if (false) {
-    return { notFound: true };
+  if (!user) {
+    return {
+      notFound: true,
+    };
   }
 
   return {
     props: {
-      user: mockUser,
+      user: user[0],
+      posts: mockBlogs
     },
-    revalidate: 60,
   };
 }

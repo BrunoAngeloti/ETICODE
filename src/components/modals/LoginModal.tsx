@@ -21,14 +21,9 @@ export function LoginModal({ isOpen, onClose, setSignUpModalOpen }: LoginModalPr
   }
 
   async function signInWithGoogle() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    await supabase.auth.signInWithOAuth({
       provider: "google"
     })
-
-    if (error) {
-      console.log(error);
-      return;
-    }
 
     onClose()
   }

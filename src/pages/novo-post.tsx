@@ -16,6 +16,7 @@ import { useUserInfo } from '@/context/UserContext';
 import { useRouter } from 'next/router';
 import { uploadNewImage } from '@/utils/fileStorage';
 import { postTable } from '@/services/table';
+import { showResponseMessage } from '@/utils/responseMessage';
 
 export default function NewPost() {
   const { userInfo } = useUserInfo();
@@ -78,7 +79,7 @@ export default function NewPost() {
       const postId = data? data[0].id : '';
       route.push(`/publicado?id=${postId}`);
     } catch (error) {
-      //console.error(error);
+      showResponseMessage("Ocorreu um erro ao publicar o post. Tente novamente mais tarde.", "error");
     } finally {
       setIsLoading(false); 
     }

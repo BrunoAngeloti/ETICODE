@@ -11,7 +11,7 @@ export function PopularTags(){
 
       <div className="w-full flex flex-row flex-wrap gap-4 gap-y-3">
         {tags.map(tag => (
-          <Tag key={tag.tag} tag={tag} textSize="text-base" />
+          <Tag key={tag} tag={tag} textSize="text-base" />
         ))}
       </div>
     </div>

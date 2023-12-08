@@ -12,7 +12,7 @@ export function Tag({ tag, textSize }: TagProps){
 
   return(
     <div className={`inline-block ${color} ${text} text-white px-4 py-1 rounded-2xl font-inter`}>
-      {tag.tag}
+      {tag}
     </div>
   )
 }

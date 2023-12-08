@@ -1,7 +1,7 @@
 import { Tag } from "@/types/Blog";
 
 export function getTagColor(tag: Tag): string {
-  switch (tag.tag) {
+  switch (tag) {
     case 'Computabilidade':
       return 'bg-primary-300';
       

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from 'next/router'; // Importe o Router do Next.js
 
 import Confetti from 'react-confetti'
+import { HeadPage } from "@/components/HeadPage";
 
 export default function Published(){
   const [height, setHeight] = useState<number>(0);
@@ -48,9 +49,9 @@ export default function Published(){
   return(
     <div 
       ref={confetiRef as any}
-      className="flex flex-col items-center font-poppins overflow-hidden max-h-screen"
+      className="flex flex-col items-center font-poppins overflow-x-hidden max-h-screen"
     >
-      <Confetti numberOfPieces={250} width={width} height={height} recycle={false}/>
+      <HeadPage title="Publicado" />
 
       <Image
         src="/thanks.svg"
@@ -61,7 +62,8 @@ export default function Published(){
       />
 
 
-      <div className="flex flex-col text-center items-center w-full max-w-7xl h-full px-10 mt-5">
+      <div className="flex flex-col text-center items-center w-full max-w-7xl h-full px-10 mt-5 overflow-x-hidden">
+        <Confetti numberOfPieces={250} width={width} height={height} recycle={false}/>
         <h1 className="text-4xl font-bold text-grey-500">
           Seu post foi publicado!
         </h1>

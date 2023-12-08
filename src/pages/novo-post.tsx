@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import { uploadNewImage } from '@/utils/fileStorage';
 import { postTable } from '@/services/table';
 import { showResponseMessage } from '@/utils/responseMessage';
+import { HeadPage } from '@/components/HeadPage';
 
 export default function NewPost() {
   const { userInfo } = useUserInfo();
@@ -68,15 +69,25 @@ export default function NewPost() {
         title: titleValue, 
         description: descriptionValue, 
         content: textValue, 
-        tags: selectedTags.map(tag => tag.tag), 
+        tags: selectedTags.map(tag => tag), 
         authorId: userInfo?.id, 
         authorName: userInfo?.name, 
         authorImage: userInfo?.photo, 
         coverImage: newImage 
       });
+
+      if (!data) throw new Error();
+
+      const teste = await postTable("UserPost", {
+        userid: userInfo?.id,
+        postid: data[0].id
+      })
+
+      console.log(teste)
   
       cleanState();
-      const postId = data? data[0].id : '';
+
+      const postId = data[0].id;
       route.push(`/publicado?id=${postId}`);
     } catch (error) {
       showResponseMessage("Ocorreu um erro ao publicar o post. Tente novamente mais tarde.", "error");
@@ -110,6 +121,8 @@ export default function NewPost() {
 
   return (
     <main className="w-full flex flex-col items-center">
+      <HeadPage title="Criar novo post" />
+
       <section className="w-full max-w-7xl px-6 lg:px-10 mt-6 font-poppins flex flex-col">
         <Title text={textTitle} />
 

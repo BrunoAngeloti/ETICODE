@@ -12,7 +12,9 @@ export async function postTable(table: string, data: any){
   }
 }
 
-export async function getTable(table: string, id?: string){
+export async function getTable(table: string, id?: string, typeID?: string){
+  const type = typeID ? typeID : 'id'
+
   try {
     if(!id){
       const response = await supabase.from(table).select('*')
@@ -20,7 +22,7 @@ export async function getTable(table: string, id?: string){
       return response.data
     }
     
-    const response = await supabase.from(table).select('*').eq('id', id)
+    const response = await supabase.from(table).select('*').eq(type, id)
     
     return response.data
   }

@@ -1,4 +1,5 @@
 import { BlogCardUser } from "@/components/BlogCardUser";
+import { HeadPage } from "@/components/HeadPage";
 import { HeaderPerfilPage } from "@/components/HeaderPerfilPage";
 import { useUserInfo } from "@/context/UserContext";
 import { mockBlogs } from "@/mocks/mockBlog";
@@ -16,6 +17,7 @@ export default function Post({ user, posts }: UserProps) {
 
   return (
     <main className="w-full flex flex-col items-center mt-8 font-inter min-h-screen">
+      <HeadPage title={`${user.name}`} />
       <section className="w-full max-w-7xl px-6 lg:px-10">
         <HeaderPerfilPage user={user} userInfo={userInfo} signOut={signOut}/>
 
@@ -35,6 +37,7 @@ export async function getServerSideProps(context: any) {
   const { id } = context.query;
 
   const user = await getTable("User", id);
+  const allPosts = await getTable("Post");
 
   if (!user) {
     return {
@@ -42,10 +45,13 @@ export async function getServerSideProps(context: any) {
     };
   }
 
+  const posts = allPosts?.filter((post: Blog) => post.authorId === id) as Blog[];
+
+
   return {
     props: {
       user: user[0],
-      posts: mockBlogs
+      posts
     },
   };
 }

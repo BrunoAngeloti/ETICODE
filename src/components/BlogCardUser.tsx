@@ -2,6 +2,7 @@ import { Blog } from "@/types/Blog"
 import Image from "next/image"
 import { Tag } from "./Tag"
 import { convertDate } from "@/utils/time"
+import Link from "next/link"
 
 interface BlogCardUserProps {
   blog: Blog
@@ -9,7 +10,10 @@ interface BlogCardUserProps {
 
 export function BlogCardUser({ blog }: BlogCardUserProps){
   return(
-    <div className="flex flex-col-reverse md:flex-row w-full relative font-inter bg-white rounded-md overflow-hidden gap-2">
+    <Link 
+      href={`/post/${blog.id}`}
+      className="flex flex-col-reverse md:flex-row w-full relative font-inter bg-white rounded-md overflow-hidden gap-2 hover:shadow-lg"
+    >
       <div className="flex flex-col px-5 py-4">
         <h1 className="text-lg font-bold text-grey-500 line-clamp-2 leading-6">{blog.title}</h1>
         <p className="text-sm font-medium text-grey-300 font-inter line-clamp-2 leading-5 mt-1 mb-5">{blog.description}</p> 
@@ -17,7 +21,7 @@ export function BlogCardUser({ blog }: BlogCardUserProps){
         <div className="flex flex-row items-center mt-auto">
           <div className="flex flex-row gap-2 items-center flex-wrap">
             {blog.tags.map(tag => (
-              <Tag key={tag.tag} tag={tag} />
+              <Tag key={tag} tag={tag} />
             ))}
           </div>
           <p className="text-grey-200 font-medium text-sm ml-auto">{convertDate(blog.createdat)}</p>
@@ -33,6 +37,6 @@ export function BlogCardUser({ blog }: BlogCardUserProps){
           className="object-cover" 
         />
       </div> 
-    </div>
+    </Link>
   )
 }

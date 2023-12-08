@@ -1,9 +1,11 @@
+import { HeadPage } from "@/components/HeadPage";
 import { HeroAbout } from "@/components/HeroAbout";
 import Image from "next/image";
 
 export default function About() {
   return (
     <main className="w-full flex flex-col items-center">
+      <HeadPage title="Sobre" />
       <section className="w-full max-w-7xl px-10 font-poppins text-justify">
         <HeroAbout />
         <div className="flex flex-col-reverse items-center lg:flex-row gap-8 mt-10">

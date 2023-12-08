@@ -11,7 +11,7 @@ interface TagInputProps {
 export function TagInput({ selectedTags, setSelectedTags }: TagInputProps) {
 	const handleTagChange = (tag: Tag) => {
     if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter(t => t.tag !== tag.tag));
+      setSelectedTags(selectedTags.filter(t => t !== tag));
     } else {
       if (selectedTags.length < 3) {
         setSelectedTags([...selectedTags, tag]);
@@ -24,18 +24,18 @@ export function TagInput({ selectedTags, setSelectedTags }: TagInputProps) {
 
   const renderTags = () => {
     return tags.map(tag => {
-      const isSelected = selectedTags.some(t => t.tag === tag.tag);
+      const isSelected = selectedTags.some(t => t === tag);
 
       const backgroundColor = isSelected ? getTagColor(tag) : 'bg-primary-50';
       const textColor = isSelected ? 'text-white' : 'text-grey-500';
 
       return(
         <div
-          key={tag.tag}
+          key={tag}
           className={`cursor-pointer px-4 py-1 rounded-2xl font-inter ${backgroundColor} ${textColor}`}
           onClick={() => handleTagChange(tag)}
         >
-          {tag.tag}
+          {tag}
         </div>
       )
     });

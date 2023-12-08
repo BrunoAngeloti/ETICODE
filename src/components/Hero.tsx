@@ -4,12 +4,14 @@ import { useState } from "react";
 import { LoginModal } from "./modals/LoginModal";
 import { SignUpModal } from "./modals/SignUpModal";
 import { useRouter } from "next/router";
+import { useUserInfo } from "@/context/UserContext";
 
 export function Hero(){
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
 
   const route = useRouter();
+  const { userInfo } = useUserInfo();
 
   return(
     <div className="w-full bg-primary-50 flex items-center flex-col lg:flex-row pt-6 lg:pt-12 gap-6 font-poppins rounded-md z-10">
@@ -23,7 +25,15 @@ export function Hero(){
 
         <div className="flex flex-col md:flex-row gap-4 mt-6 w-full justify-center lg:justify-start">
           <Button title="Saiba mais" onPress={() => route.push("/sobre")}/>
-          <Button title="Criar uma conta" onPress={() => setSignUpModalOpen(true)} variant="outlined"/>
+          <Button 
+            title={userInfo ? "Criar post" : "Criar uma conta"}
+            onPress={
+              userInfo ? 
+              () => route.push("/novo-post") :
+              () => setSignUpModalOpen(true)
+            } 
+            variant="outlined"
+          />
         </div>
       </div>
       <Image

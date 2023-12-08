@@ -46,11 +46,11 @@ export function Button({
   return (
     <button
       onClick={onPress}
-      className={`${baseStyle} ${variantStyle} ${fullWidthStyle} ${disabledStyle}`}
+      className={`${baseStyle} ${variantStyle} ${fullWidthStyle} ${disabledStyle} gap-2`}
       disabled={disabled || loading}
     >
       {loading ? <LoadingSpin /> : Icon && <Icon />}
-      <span className="ml-2">{title}</span>
+      <span>{title}</span>
     </button>
   );
 }

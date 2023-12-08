@@ -1,3 +1,4 @@
+import { HeadPage } from "@/components/HeadPage";
 import { Hero } from "@/components/Hero";
 import { LastPosts } from "@/components/LastPosts";
 import { PlayGame } from "@/components/PlayGame";
@@ -8,6 +9,7 @@ export default function Home() {
   return (
     <main className="w-full flex flex-col items-center">
       <section className="w-full max-w-7xl px-6 lg:px-10">
+        <HeadPage />
         <Hero />
         <PopularPosts />
         <PlayGame />

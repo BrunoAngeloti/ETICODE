@@ -24,7 +24,7 @@ export function BlogCardHome({ blog }: BlogCardHomeProps){
       <div className="flex flex-col px-4 py-3">
         <div className="flex flex-row gap-2 items-center flex-wrap">
           {blog.tags.map(tag => (
-            <Tag key={tag.tag} tag={tag} />
+            <Tag key={tag} tag={tag} />
           ))}
         </div>
         

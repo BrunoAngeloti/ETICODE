@@ -29,7 +29,7 @@ export default function Post({ post }: PostProps) {
           <p className="text-grey-200 font-medium text-base">{convertDate(post.createdat)}</p>
         </div>
 
-        <Image src={post.coverImage} alt={post.title} width={1024} height={800} quality={100} className="rounded-lg my-8" />
+        <Image src={post.coverImage} alt={post.title} width={1024} height={800} quality={100} className="rounded-lg my-8" loading="eager"/>
 
         <div
           className="output font-inter"

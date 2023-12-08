@@ -16,7 +16,7 @@ export default function Post({ user, posts }: UserProps) {
   const { userInfo, signOut } = useUserInfo();
 
   return (
-    <main className="w-full flex flex-col items-center mt-8 font-inter min-h-screen">
+    <main className="w-full flex flex-col items-center mt-8 font-inter">
       <HeadPage title={`${user.name}`} />
       <section className="w-full max-w-7xl px-6 lg:px-10">
         <HeaderPerfilPage user={user} userInfo={userInfo} signOut={signOut}/>

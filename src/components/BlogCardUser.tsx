@@ -28,13 +28,14 @@ export function BlogCardUser({ blog }: BlogCardUserProps){
         </div>
       </div>
 
-      <div className="relative w-full md:w-48 h-48 md:h-full overflow-hidden bg-red-500 min-w-[150px]">
+      <div className="relative w-full md:w-48 h-48 md:h-full overflow-hidden min-w-[150px]">
         <Image 
           src={blog.coverImage} 
           alt={blog.title} 
           fill
           quality={100}
           className="object-cover" 
+          loading="eager"
         />
       </div> 
     </Link>

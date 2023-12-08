@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { TitleInput } from '@/components/formNewPost/TitleInput';
 import type { Tag } from '@/types/Blog';
@@ -6,12 +6,12 @@ import { DescriptionInput } from '@/components/formNewPost/DescriptionInput';
 import { ImageInput } from '@/components/formNewPost/ImageInput';
 import { TagInput } from '@/components/formNewPost/TagInput';
 import { TextInput } from '@/components/formNewPost/TextInput';
+
 import { Title } from '@/components/Title';
 import { FaTrash } from 'react-icons/fa';
 import { MdPublish } from 'react-icons/md';
 import { DeleteConfirmationModal } from '@/components/modals/DeleteConfirmationModal';
 import { Button } from '@/components/Button';
-import { supabase } from '@/lib/initSupabase';
 import { useUserInfo } from '@/context/UserContext';
 import { useRouter } from 'next/router';
 import { uploadNewImage } from '@/utils/fileStorage';
@@ -19,8 +19,11 @@ import { postTable } from '@/services/table';
 import { showResponseMessage } from '@/utils/responseMessage';
 import { HeadPage } from '@/components/HeadPage';
 
+import Image from "next/image"
+import { LoadingSpin } from '@/components/LoadingSpin';
+
 export default function NewPost() {
-  const { userInfo } = useUserInfo();
+  const { userInfo, loading: loadingUser } = useUserInfo();
   const [textValue, setTextValue] = useState('');
   const [titleValue, setTitleValue] = useState('')
   const [descriptionValue, setDescriptionValue] = useState('')
@@ -77,13 +80,6 @@ export default function NewPost() {
       });
 
       if (!data) throw new Error();
-
-      const teste = await postTable("UserPost", {
-        userid: userInfo?.id,
-        postid: data[0].id
-      })
-
-      console.log(teste)
   
       cleanState();
 
@@ -118,6 +114,31 @@ export default function NewPost() {
 
   const disableDelete = !cleanContent(textValue) && !titleValue && !descriptionValue && !selectedTags.length;
   const disablePublish = !cleanContent(textValue) || !titleValue || !descriptionValue || !selectedTags.length || !fileData;
+
+  if(loadingUser) {
+    return(
+      <main className="w-full flex flex-col items-center">
+        <section className="w-full max-w-7xl px-6 lg:px-10 mt-6 font-poppins flex flex-col items-center h-full justify-center">       
+          <LoadingSpin />
+        </section>
+      </main>
+    )
+  }
+
+  if(!userInfo) {
+    return(
+      <main className="w-full flex flex-col items-center">
+        <HeadPage title="Usuário não autenticado" />
+
+        <section className="w-full max-w-7xl px-6 lg:px-10 mt-6 font-poppins flex flex-col items-center h-full justify-center">       
+          <Image src="/doLoginBefore.svg" alt="homem fazendo login em uma aplicação" width={400} height={270} className='mt-4' />
+          <h1 className="text-grey-500 mt-12 text-2xl font-bold text-center">
+            Você precisa fazer login para continuar
+          </h1>
+        </section>
+      </main>
+    )
+  }
 
   return (
     <main className="w-full flex flex-col items-center">

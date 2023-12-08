@@ -6,11 +6,17 @@ import { FaTrash } from "react-icons/fa";
 interface ImageInputProps {
   fileData: File | null;
   setFileData: (fileData: File | null) => void
+  previewUrlDefault?: string
 }
 
-export function ImageInput({ fileData, setFileData }: ImageInputProps) {
+export function ImageInput({ fileData, setFileData, previewUrlDefault }: ImageInputProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [showTrashIcon, setShowTrashIcon] = useState(false);
+
+  useEffect(() => {
+    if(previewUrlDefault)
+      setPreviewUrl(previewUrlDefault)
+  }, [previewUrlDefault])
 
   useEffect(() => {
     if (fileData) {

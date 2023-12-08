@@ -26,7 +26,7 @@ export function HeaderPerfilPage({ user, userInfo, signOut }: HeaderPerfilPagePr
 		<div className="flex flex-col text-center lg:text-left lg:flex-row items-center w-full justify-center">
 			<Image src={user.photo} alt={user.name} width={100} height={100} className="rounded-full" />
 
-			<div className="flex flex-col font-poppins ml-6 mr-auto">
+			<div className="flex flex-col font-poppins ml-0 lg:ml-6 mr-0 lg:mr-auto mt-2 lg:mt-0">
 				<h1 className="text-4xl font-bold text-grey-500">{user.name}</h1>
 				<p className="text-base text-grey-300">{user.occupation} - {user.institution}</p>
 			</div>

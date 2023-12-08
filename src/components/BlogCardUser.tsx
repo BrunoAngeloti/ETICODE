@@ -28,7 +28,7 @@ export function BlogCardUser({ blog }: BlogCardUserProps){
         </div>
       </div>
 
-      <div className="relative w-full md:w-96 h-48 md:h-full overflow-hidden">
+      <div className="relative w-full md:w-48 h-48 md:h-full overflow-hidden bg-red-500 min-w-[150px]">
         <Image 
           src={blog.coverImage} 
           alt={blog.title} 

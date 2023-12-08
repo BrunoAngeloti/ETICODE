@@ -43,3 +43,15 @@ export async function putTable(table: string, id: string, data: any){
     throw error
   }
 }
+
+export async function deleteTable(table: string, id: string){
+  try {
+    const response = await supabase.from(table).delete().eq('id', id)
+    
+    return response.data
+  }
+  catch (error) {
+    console.log(error)
+    throw error
+  }
+}

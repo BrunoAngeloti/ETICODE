@@ -2,18 +2,29 @@ import { BlogCardUser } from "@/components/BlogCardUser";
 import { HeadPage } from "@/components/HeadPage";
 import { HeaderPerfilPage } from "@/components/HeaderPerfilPage";
 import { useUserInfo } from "@/context/UserContext";
-import { mockBlogs } from "@/mocks/mockBlog";
 import { getTable } from "@/services/table";
 import { Blog } from "@/types/Blog";
 import type { User } from "@/types/User";
+import { showResponseMessage } from "@/utils/responseMessage";
+import { useRouter } from 'next/router';
+import { useEffect } from "react";
 
 interface UserProps {
   user: User;
   posts: Blog[];
+  postDeleted: boolean;
 }
 
-export default function Post({ user, posts }: UserProps) {
+export default function Post({ user, posts, postDeleted }: UserProps) {
   const { userInfo, signOut } = useUserInfo();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (postDeleted) {
+      showResponseMessage("O post foi deletado com sucesso.", "success");
+      router.replace(`/user/${user.id}`, undefined, { shallow: true });
+    }
+  }, []);
 
   return (
     <main className="w-full flex flex-col items-center mt-8 font-inter">
@@ -34,7 +45,7 @@ export default function Post({ user, posts }: UserProps) {
 }
 
 export async function getServerSideProps(context: any) {
-  const { id } = context.query;
+  const { id, postDeleted } = context.query;
 
   const user = await getTable("User", id);
   const allPosts = await getTable("Post");
@@ -51,7 +62,8 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       user: user[0],
-      posts
+      posts,
+      postDeleted: postDeleted === 'true'
     },
   };
 }

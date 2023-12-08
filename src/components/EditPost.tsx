@@ -48,7 +48,8 @@ export function EditPost({ post }: EditPostProps) {
         tags: selectedTags.map(tag => tag), 
         coverImage: newImage 
       });
-  
+			
+			window.history.pushState(null, '', `${window.location.href}?postUpdated=true`);
 			window.location.reload();
     } catch (error) {
       showResponseMessage("Ocorreu um erro ao editar o post. Tente novamente mais tarde.", "error");

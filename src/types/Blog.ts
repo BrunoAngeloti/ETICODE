@@ -12,4 +12,5 @@ export type Blog = {
   authorName: string;
   authorId: string;
   authorImage: string;
+  views: number;
 }

@@ -11,7 +11,8 @@ export const mockBlogs = [
     coverImage: '/mocks/mockblog3.png',
     authorName: 'Maria Eduarda',
     authorId: '1',
-    authorImage: '/mocks/mockperson.png'
+    authorImage: '/mocks/mockperson.png',
+    views: 10
   },
   {
     title: 'A era da robótica: O que podemos fazer',
@@ -23,7 +24,8 @@ export const mockBlogs = [
     coverImage: '/mocks/mockblog1.png',
     authorName: 'Bruno Angeloti',
     authorId: '2',
-    authorImage: '/mocks/mockperson.png'
+    authorImage: '/mocks/mockperson.png',
+    views: 5
   },
   {
     title: 'As mulheres na computação: O que podemos fazer',
@@ -35,6 +37,7 @@ export const mockBlogs = [
     coverImage: '/mocks/mockblog2.png',
     authorName: 'Maria Eduarda',
     authorId: '3',
-    authorImage: '/mocks/mockperson.png'
+    authorImage: '/mocks/mockperson.png',
+    views: 22
   }
 ] as Blog[]

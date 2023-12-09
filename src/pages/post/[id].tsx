@@ -3,6 +3,7 @@ import { EditPost } from "@/components/EditPost";
 import { HeadPage } from "@/components/HeadPage";
 import { DeleteConfirmationModal } from "@/components/modals/DeleteConfirmationModal";
 import { useUserInfo } from "@/context/UserContext";
+import { supabase } from "@/lib/initSupabase";
 import { deleteTable, getTable } from "@/services/table";
 import { Blog } from "@/types/Blog";
 import { showResponseMessage } from "@/utils/responseMessage";
@@ -29,7 +30,13 @@ export default function Post({ post, postUpdated }: PostProps) {
   const isUser = userInfo?.id === post.authorId
 
   useEffect(() => {
-    console.log("teste")
+    const incrementPostView = async () => {
+      const { data, error } = await supabase.rpc('increment_view_count', { 
+        post_id: post.id 
+      });
+    };
+
+    incrementPostView();
   }, [])
 
   useEffect(() => {

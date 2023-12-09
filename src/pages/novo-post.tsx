@@ -76,7 +76,8 @@ export default function NewPost() {
         authorId: userInfo?.id, 
         authorName: userInfo?.name, 
         authorImage: userInfo?.photo, 
-        coverImage: newImage 
+        coverImage: newImage,
+        views: 0,
       });
 
       if (!data) throw new Error();

@@ -76,25 +76,26 @@ export default function Post({ post, postUpdated }: PostProps) {
         <h2 className="text-grey-300 font-medium text-lg mt-3 leading-6 text-justify">{post.description}</h2>
 
         <div className="flex flex-col-reverse sm:flex-row w-full items-start sm:items-center mt-4 sm:mt-8">
-          <Link
-            href={`/user/${post.authorId}`}
-            className="flex flex-row gap-3 items-center"
-          >
-            <Image 
-              src={post.authorImage} 
-              alt={post.authorName} 
-              width={40} 
-              height={40} 
-              className="rounded-full" 
-            />
-            <p className="text-grey-500 font-medium text-base">{post.authorName}</p>
-
+          <div className="flex flex-row gap-3 items-center">
+            <Link
+              href={`/user/${post.authorId}`}
+              className="flex flex-row gap-3 items-center"
+            >
+              <Image 
+                src={post.authorImage} 
+                alt={post.authorName} 
+                width={40} 
+                height={40} 
+                className="rounded-full" 
+              />
+              <p className="text-grey-500 font-medium text-base">{post.authorName}</p>            
+            </Link>
             {isUser && (
               <div className="flex sm:hidden flex-row gap-3 ml-auto">
                 {renderButtons()}
               </div>
             )}
-          </Link>
+          </div>
 
           <span className="hidden sm:flex flex-row items-center justify-center gap-1 ml-3">
             <FaEye className="text-grey-500" size={16} />

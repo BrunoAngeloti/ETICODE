@@ -15,7 +15,7 @@ export function BlogCardHome({ blog }: BlogCardHomeProps){
     <Link 
       href={`/post/${blog.id}`}
       passHref
-      className="flex flex-col w-full relative bg-white rounded-md overflow-hidden hover:shadow-md cursor-pointer transition-shadow"
+      className="flex flex-col w-full relative bg-white rounded-md overflow-hidden hover:shadow-lg cursor-pointer transition-shadow duration-300"
     >
       <div className="relative w-full h-56 mb-1">
         <Image 

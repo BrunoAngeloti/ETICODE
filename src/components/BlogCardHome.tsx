@@ -3,6 +3,8 @@ import Image from "next/image"
 import { Tag } from "./Tag"
 
 import { MdPerson } from "react-icons/md";
+import { FaEye } from "react-icons/fa";
+import Link from "next/link";
 
 interface BlogCardHomeProps {
   blog: Blog
@@ -10,7 +12,11 @@ interface BlogCardHomeProps {
 
 export function BlogCardHome({ blog }: BlogCardHomeProps){
   return(
-    <div className="flex flex-col w-full relative bg-white rounded-md overflow-hidden hover:shadow-md cursor-pointer transition-shadow">
+    <Link 
+      href={`/post/${blog.id}`}
+      passHref
+      className="flex flex-col w-full relative bg-white rounded-md overflow-hidden hover:shadow-md cursor-pointer transition-shadow"
+    >
       <div className="relative w-full h-56 mb-1">
         <Image 
           src={blog.coverImage} 
@@ -18,7 +24,7 @@ export function BlogCardHome({ blog }: BlogCardHomeProps){
           fill
           quality={100}
           className="rounded-sm object-cover" 
-        />
+        />      
       </div>
       
       <div className="flex flex-col px-4 py-3">
@@ -34,8 +40,13 @@ export function BlogCardHome({ blog }: BlogCardHomeProps){
         <div className="flex flex-row items-center mt-2">
           <MdPerson className="inline-block text-grey-500 mr-2" size={20} />
           <p className="text-grey-500 font-inter font-semibold">{blog.authorName}</p>
+
+          <span className="flex flex-row items-center justify-center gap-1 ml-auto">
+            <FaEye className="text-grey-500" size={16} />
+            <p className="text-grey-500 font-inter font-semibold">{blog.views}</p>
+          </span>
         </div> 
       </div> 
-    </div>
+    </Link>
   )
 }

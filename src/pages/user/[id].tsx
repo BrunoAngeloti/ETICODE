@@ -58,11 +58,18 @@ export async function getServerSideProps(context: any) {
 
   const posts = allPosts?.filter((post: Blog) => post.authorId === id) as Blog[];
 
+  const postsSorted = posts.sort((a, b) => {
+    const dateA = new Date(a.createdat).getTime();
+    const dateB = new Date(b.createdat).getTime();
+
+    return dateB - dateA;
+  });
+
 
   return {
     props: {
       user: user[0],
-      posts,
+      posts: postsSorted,
       postDeleted: postDeleted === 'true'
     },
   };

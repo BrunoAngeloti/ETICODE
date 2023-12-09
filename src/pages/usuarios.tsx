@@ -1,4 +1,5 @@
 import { HeadPage } from "@/components/HeadPage";
+import { Title } from "@/components/Title";
 import { getTable } from "@/services/table";
 import type { User } from "@/types/User";
 import Image from "next/image";
@@ -44,21 +45,22 @@ export default function Users({ users }: UsersProps) {
     <main className="w-full flex flex-col items-center">
       <section className="w-full max-w-7xl px-6 lg:px-10">
         <HeadPage title="Usuários" />
-        <div className="flex flex-col sm:flex-row justify-between ">
-          <h1 className="text-grey-500 font-bold text-3xl sm:text-5xl">Usuários</h1>
+        
+        <div className="flex flex-col justify-between ">
+        <Title text="Usuários" />
           
-          <div className="relative flex-row items-center bg-primary-100 bg-opacity-20 rounded-lg flex h-full py-3 font-poppins mt-3 sm:mt-0">
+          <div className="relative flex-row items-center bg-primary-100 bg-opacity-20 rounded-lg flex h-full py-3 font-poppins mt-5 w-full">
             <IoMdSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-lg text-gray-400"/>
             <input 
-              placeholder="Pesquisar" 
-              className="pl-12 border-none outline-none bg-transparent pr-8"
+              placeholder="Pesquisar usuário" 
+              className="pl-12 border-none outline-none bg-transparent pr-8 w-full"
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
           </div>      
         </div>
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 mt-7">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
           {filteredUsers?.map(user => (
             renderUsers(user)
           ))}

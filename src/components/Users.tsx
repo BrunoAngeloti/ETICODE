@@ -24,6 +24,7 @@ export function Users({ users }: UsersProps){
           width={32} 
           height={32} 
           className="rounded-full" 
+          quality={100}
         />
         <p className="text-grey-500 font-medium text-base">{user.name}</p>            
       </Link>

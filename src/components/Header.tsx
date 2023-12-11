@@ -68,12 +68,18 @@ export function Header() {
     <>
       <header className="w-full bg-secondary-50 flex items-center justify-center fixed z-50">
         <div className="w-full max-w-7xl flex flex-row items-center px-6 lg:px-10 py-4 bg-secondary-50 z-50 h-full">
-          <Link href="/">
+          <Link href="/" className="flex flex-row gap-2">
+            <Image
+              src="/logoIcon.svg"
+              width={30}
+              height={45}
+              alt="Logo ETICODE"
+            />
             <Image
               src="/logo.svg"
               width={126}
               height={45}
-              alt="Logo ETICODE"
+              alt="Nome ETICODE"
             />
           </Link>
 

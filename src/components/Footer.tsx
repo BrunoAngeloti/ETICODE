@@ -25,11 +25,11 @@ export function Footer() {
             SOBRE NÓS
           </Link>
 
-          <Link href="/sobre" passHref className="hover:underline">
+          <Link href="/termos-de-uso" passHref className="hover:underline">
             TERMOS DE USO
           </Link>
 
-          <Link href="/sobre" passHref className="hover:underline">
+          <Link href="/politica-de-privacidade" passHref className="hover:underline">
             POLÍTICA DE PRIVACIDADE
           </Link>
         </nav>

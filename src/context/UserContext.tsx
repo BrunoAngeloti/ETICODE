@@ -16,7 +16,7 @@ export const UserProvider = ({ children }: any) => {
 	const [userInfo, setUserInfo] = useState<User | null>(null);
 	const [loading, setLoading] = useState(true);
 
-	const allowedDomains = ["@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com", "@edu.ufes.br"]
+	const allowedDomains = ["ufes.br"]
 
 	async function signOut() {
 		await supabase?.auth.signOut()

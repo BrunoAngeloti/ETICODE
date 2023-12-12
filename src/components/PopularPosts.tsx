@@ -12,7 +12,7 @@ export function PopularPosts({ posts }: PopularPostsProps){
 
   return(
     <div className="w-full flex flex-col gap-5 mt-10">
-      <Title text="Posts populares" />
+      <Title text="Posts populares" link="/posts" linkText="Ver todos"/>
 
       <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {popularPosts?.map(post => (

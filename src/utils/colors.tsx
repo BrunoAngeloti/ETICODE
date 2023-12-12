@@ -2,19 +2,31 @@ import { Tag } from "@/types/Blog";
 
 export function getTagColor(tag: Tag): string {
   switch (tag) {
-    case 'Computabilidade':
-      return 'bg-primary-300';
-      
-    case 'Moral':
-      return 'bg-primary-400';
-    case 'Computação':
-      return 'bg-primary-400';
-
+    // Temas de ética e moral - cores mais claras
     case 'Ética':
-      return 'bg-primary-500';
     case 'Igualdade':
+    case 'Moral':
+    case 'Equidade':
+    case 'Inclusão':
+    case 'Transparência':
+      return 'bg-primary-300';
+
+    case 'Privacidade':
+    case 'Diversidade':
+    case 'TechSociedade':
+      return 'bg-primary-400';
+
+    // Temas de computação - cores mais escuras
+    case 'Computação':
+    case 'Cibersegurança':
+    case 'IA':
       return 'bg-primary-500';
 
+    case 'Robótica':
+    case 'Blockchain':
+    case 'Jogos':
+      return 'bg-primary-700';
+      
     default:
       return 'bg-black';
   }

@@ -16,7 +16,7 @@ export function HeroTerm(){
 
         <div className="flex flex-col md:flex-row gap-4 mt-6 w-full justify-center lg:justify-start">     
           <Button title="Sobre nós" onPress={() => route.push("/sobre")} />
-          <Button title="Ver posts" onPress={() => route.push("/")} variant="outlined" />
+          <Button title="Ver posts" onPress={() => route.push("/posts")} variant="outlined" />
         </div>
       </div>
       <Image

@@ -1,4 +1,8 @@
-export type Tag = 'Ética' | 'Moral'  | 'Computação'  | 'Igualdade'  | 'Computabilidade' 
+export type Tag = 
+'Ética' | 'Igualdade' | 'Computação' | 'Moral' | 
+'Equidade' | 'Cibersegurança' | 'IA' | 
+'Inclusão' | 'Transparência' | 'Robótica' | 'Privacidade' | 
+'Diversidade' | 'TechSociedade' | 'Blockchain' | 'Jogos'
 
 export type Blog = {
   id: string;

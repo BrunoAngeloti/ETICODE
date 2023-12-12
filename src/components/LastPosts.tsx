@@ -19,15 +19,15 @@ export function LastPosts({ posts }: LastPostsProps){
       return dateB.getTime() - dateA.getTime();
     })
 
-    setLastPosts(postsAux)
+    setLastPosts(postsAux?.slice(0, 6))
   }, [posts])
 
   return(
     <div className="w-full flex flex-col gap-5 col-span-3 lg:col-span-2">
-      <Title text="Últimos posts" />
+      <Title text="Últimos posts" link="/posts" linkText="Ver todos"/>
 
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5">
-        {posts?.map(post => (
+        {lastPosts?.map(post => (
           <BlogCardHome key={post.id} blog={post} />
         ))}
       </div>

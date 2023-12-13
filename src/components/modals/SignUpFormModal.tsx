@@ -108,7 +108,7 @@ export function SignUpFormModal({ isOpen, userInfo }: SignUpFormModalProps) {
         </div>
 
         <div className="flex flex-col text-left font-semibold mb-4">
-          <label className="text-grey-500">Nome*</label>
+          <label className="text-grey-500">Nome e Sobrenome*</label>
           <input type="text" className="text-grey-300 border border-primary-100 bg-primary-50 rounded px-3 py-2"
             value={name}
             onChange={(e) => setName(e.target.value)}

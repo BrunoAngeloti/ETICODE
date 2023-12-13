@@ -39,7 +39,7 @@ export function BlogCardHome({ blog }: BlogCardHomeProps){
 
         <div className="flex flex-row items-center mt-2">
           <MdPerson className="inline-block text-grey-500 mr-2" size={20} />
-          <p className="text-grey-500 font-inter font-semibold">{blog.authorName}</p>
+          <p className="text-grey-500 font-inter font-semibold truncate mr-2">{blog.authorName}</p>
 
           <span className="flex flex-row items-center justify-center gap-1 ml-auto">
             <FaEye className="text-grey-500" size={16} />

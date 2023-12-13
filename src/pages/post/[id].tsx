@@ -86,7 +86,7 @@ export default function Post({ post, postUpdated }: PostProps) {
                 alt={post.authorName} 
                 width={40} 
                 height={40} 
-                className="rounded-full" 
+                className="rounded-full max-h-10" 
               />
               <p className="text-grey-500 font-medium text-base">{post.authorName}</p>            
             </Link>

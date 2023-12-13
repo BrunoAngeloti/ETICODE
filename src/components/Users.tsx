@@ -23,7 +23,7 @@ export function Users({ users }: UsersProps){
           alt={user.name} 
           width={32} 
           height={32} 
-          className="rounded-full" 
+          className="rounded-full max-h-8" 
           quality={100}
         />
         <p className="text-grey-500 font-medium text-base">{user.name}</p>            

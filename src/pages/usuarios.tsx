@@ -25,9 +25,10 @@ export default function Users({ users }: UsersProps) {
         <Image 
           src={user.photo} 
           alt={user.name} 
-          width={60} 
-          height={60} 
-          className="rounded-full" 
+          width={64} 
+          height={64} 
+          className="rounded-full max-h-16" 
+          quality={100}
         />
         <div className="flex flex-col gap-0 text-center sm:text-left"> 
           <p className="text-grey-500 font-medium text-xl leading-5">{user.name}</p>     

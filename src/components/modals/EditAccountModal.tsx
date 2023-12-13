@@ -49,7 +49,8 @@ export function EditAccountModal({ isOpen, userInfo, onClose }: EditAccountModal
         photo: newPhotoUrl,
       });
 
-      window.location.reload();
+      window.history.pushState(null, '', `${window.location.href}?perfilUpdated=true`);
+			window.location.reload();
     } catch (error: any) {
       alert(error.message);
     } finally {
@@ -85,7 +86,12 @@ export function EditAccountModal({ isOpen, userInfo, onClose }: EditAccountModal
     setInstitution(userInfo?.institution);
   }, [userInfo]);
 
-  const disableSaveButton = name === userInfo?.name && imagePreview === userInfo?.photo && occupation === userInfo?.occupation && institution === userInfo?.institution;
+  const disableSaveButton = (
+    name === userInfo?.name && 
+    imagePreview === userInfo?.photo && 
+    occupation === userInfo?.occupation && 
+    institution === userInfo?.institution
+    ) || !name || !occupation || !institution;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>

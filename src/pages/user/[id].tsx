@@ -14,15 +14,21 @@ interface UserProps {
   user: User;
   posts: Blog[];
   postDeleted: boolean;
+  perfilUpdated: boolean;
 }
 
-export default function Post({ user, posts, postDeleted }: UserProps) {
+export default function Post({ user, posts, postDeleted, perfilUpdated }: UserProps) {
   const { userInfo, signOut } = useUserInfo();
   const router = useRouter();
 
   useEffect(() => {
     if (postDeleted) {
       showResponseMessage("O post foi deletado com sucesso.", "success");
+      router.replace(`/user/${user.id}`, undefined, { shallow: true });
+    }
+
+    if (perfilUpdated) {
+      showResponseMessage("O perfil foi editado com sucesso.", "success");
       router.replace(`/user/${user.id}`, undefined, { shallow: true });
     }
   }, []);
@@ -65,7 +71,7 @@ export default function Post({ user, posts, postDeleted }: UserProps) {
 }
 
 export async function getServerSideProps(context: any) {
-  const { id, postDeleted } = context.query;
+  const { id, postDeleted, perfilUpdated } = context.query;
 
   const user = await getTable("User", id);
   const allPosts = await getTable("Post");
@@ -90,7 +96,8 @@ export async function getServerSideProps(context: any) {
     props: {
       user: user[0],
       posts: postsSorted,
-      postDeleted: postDeleted === 'true'
+      postDeleted: postDeleted === 'true',
+      perfilUpdated: perfilUpdated === 'true'
     },
   };
 }

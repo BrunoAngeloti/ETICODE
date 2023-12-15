@@ -1,6 +1,6 @@
 export type Tag = 
 'Ética' | 'Igualdade' | 'Computação' | 'Moral' | 
-'Equidade' | 'Cibersegurança' | 'IA' | 'IOT' |
+'Equidade' | 'Cibersegurança' | 'IA' | 'IoT' |
 'Inclusão' | 'Transparência' | 'Robótica' | 'Privacidade' | 
 'Diversidade' | 'TechSociedade' | 'Blockchain' | 'Jogos'
 

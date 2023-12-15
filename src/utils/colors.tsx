@@ -23,7 +23,7 @@ export function getTagColor(tag: Tag): string {
       return 'bg-primary-500';
 
     case 'Robótica':
-    case 'IOT':
+    case 'IoT':
     case 'Blockchain':
     case 'Jogos':
       return 'bg-primary-700';
